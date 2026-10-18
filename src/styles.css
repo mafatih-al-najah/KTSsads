@@ -61,7 +61,7 @@
   --input: color-mix(in oklab, var(--violet) 16%, white);
   --ring: var(--violet);
   --gradient-brand: linear-gradient(135deg, var(--teal) 0%, var(--violet) 60%, var(--lime) 120%);
-  --gradient-text: linear-gradient(90deg, var(--violet), color-mix(in oklab, var(--violet) 35%, var(--lime)), var(--lime));
+  --gradient-text: linear-gradient(90deg, var(--violet), color-mix(in oklab, var(--violet) 45%, var(--lime)) 55%, color-mix(in oklab, var(--lime) 55%, var(--teal)));
   --shadow-glow: 0 20px 50px -15px color-mix(in oklab, var(--violet) 45%, transparent);
 }
 
@@ -76,6 +76,7 @@
   --secondary-foreground: oklch(0.97 0.01 300);
   --muted: color-mix(in oklab, var(--teal) 55%, oklch(0.24 0.01 260));
   --muted-foreground: oklch(0.78 0.02 240);
+  --gradient-text: linear-gradient(90deg, color-mix(in oklab, var(--violet) 70%, white), color-mix(in oklab, var(--violet) 35%, var(--lime)) 55%, var(--lime));
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
 }

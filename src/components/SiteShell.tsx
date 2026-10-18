@@ -182,7 +182,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <span className="font-bold text-accent">{site.name}</span>
             </p>
             <PalettePicker />
-            <p className="opacity-70">صُنع بحب لطلاب العراق 🇮🇶</p>
+            <p className="flex items-center gap-2 opacity-70">صُنع بحب لطلاب العراق
+              <svg viewBox="0 0 21 14" className="h-3.5 w-5 rounded-[2px]" role="img" aria-label="علم العراق">
+                <rect width="21" height="4.67" fill="#CE1126" />
+                <rect y="4.67" width="21" height="4.67" fill="#FFFFFF" />
+                <rect y="9.34" width="21" height="4.66" fill="#0C7C3B" />
+              </svg>
+            </p>
           </div>
         </div>
       </footer>
