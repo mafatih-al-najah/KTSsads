@@ -183,10 +183,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </p>
             <PalettePicker />
             <p className="flex items-center gap-2 opacity-70">صُنع بحب لطلاب العراق
-              <svg viewBox="0 0 21 14" className="h-3.5 w-5 rounded-[2px]" role="img" aria-label="علم العراق">
+              <svg viewBox="0 0 21 14" className="h-3.5 w-5 rounded-[2px] ring-1 ring-teal-foreground/15" role="img" aria-label="علم العراق">
                 <rect width="21" height="4.67" fill="#CE1126" />
                 <rect y="4.67" width="21" height="4.67" fill="#FFFFFF" />
-                <rect y="9.34" width="21" height="4.66" fill="#0C7C3B" />
+                <rect y="9.34" width="21" height="4.66" fill="#000000" />
+                <text x="10.5" y="8.15" textAnchor="middle" direction="rtl" fill="#0C7C3B" fontSize="3.2" fontWeight="700" fontFamily="'Cairo', sans-serif">الله أكبر</text>
               </svg>
             </p>
           </div>
