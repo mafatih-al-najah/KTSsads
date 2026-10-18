@@ -53,11 +53,11 @@ function PalettePicker() {
   useEffect(() => {
     const p = localStorage.getItem("palette") || "default";
     setCur(p);
-    document.documentElement.dataset.palette = p;
+    document.documentElement.dataset["palette"] = p;
   }, []);
   const pick = (id: string) => {
     setCur(id);
-    document.documentElement.dataset.palette = id;
+    document.documentElement.dataset["palette"] = id;
     localStorage.setItem("palette", id);
   };
   return (
