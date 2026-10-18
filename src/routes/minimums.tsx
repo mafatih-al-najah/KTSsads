@@ -6,7 +6,7 @@ export const Route = createFileRoute("/minimums")({
   head: () => meta("الحدود الدنيا دفعة 2026", "الحدود الدنيا للقبول المركزي في الكليات العراقية لدفعة 2026."),
   component: () => (
     <>
-      <PageHero title="الحدود الدنيا دفعة 2026" subtitle="معدلات القبول المركزي — تُحدّث فور صدورها" />
+      <PageHero title="الحدود الدنيا دفعة 2026 (متميزين)" />
       <div className="mx-auto max-w-3xl px-4 py-14">
         <div className="overflow-hidden rounded-2xl border bg-card">
           <div className="grid grid-cols-2 bg-brand px-6 py-4 font-bold text-primary-foreground">
