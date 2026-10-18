@@ -160,7 +160,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand"><KeyRound className="h-5 w-5" /></span>
               <span className="font-display text-2xl font-extrabold">{site.name}</span>
             </div>
-            <p className="mt-4 text-sm opacity-80">{site.tagline}</p>
+            <p className="mt-4 text-sm opacity-80">{"\n"}</p>
             <a href={site.telegramChannel} target="_blank" rel="noreferrer" className="btn-lime mt-6"><Send className="h-4 w-4" /> انضم للقناة</a>
           </div>
           <div>
