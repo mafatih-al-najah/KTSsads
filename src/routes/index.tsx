@@ -18,7 +18,7 @@ function Index() {
         <div className="hero-blob right-10 top-10 h-80 w-80 bg-accent" />
         <div className="hero-blob bottom-0 left-0 h-96 w-96 bg-primary" style={{ animationDelay: "-4s" }} />
         <div className="relative mx-auto max-w-7xl px-4 py-24 text-center text-primary-foreground md:py-32">
-          <span className="inline-block rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-4 py-1 text-sm backdrop-blur">🎓 دفعة 2026</span>
+          <span className="inline-block rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-4 py-1 text-sm backdrop-blur">دفعة 25 🎓<br />دفعة 26 🎓<br />دفعة 27 ⏳</span>
           <h1 className="mt-6 text-5xl font-black leading-tight md:text-7xl">
             طريقك إلى التفوّق<br /><span className="text-accent">يبدأ من هنا</span>
           </h1>
@@ -28,7 +28,7 @@ function Index() {
             <Link to="/notes" className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/40 px-6 py-3 font-bold backdrop-blur transition hover:bg-primary-foreground/10">تصفح الملازم</Link>
           </div>
           <div className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-4">
-            {[[governorates.length, "محافظة"], [subjects.length, "مواد دراسية"], ["24/7", "دعم ومتابعة"]].map(([n, l]) => (
+            {[[governorates.length, "محافظة"], [subjects.length, "مواد دراسية"], ["24h", "تطوير ومتابعة"]].map(([n, l]) => (
               <div key={l} className="rounded-2xl border border-primary-foreground/20 bg-primary-foreground/10 p-4 backdrop-blur">
                 <div className="font-display text-3xl font-black text-accent">{n}</div>
                 <div className="text-sm opacity-90">{l}</div>
