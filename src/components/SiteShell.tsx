@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Menu, Moon, Sun, X, KeyRound, Send } from "lucide-react";
+import { Menu, Moon, Sun, X, KeyRound, Send, Palette, Check } from "lucide-react";
 import { site } from "@/data/site";
 
 export const nav = [
@@ -34,6 +34,51 @@ function ThemeToggle() {
     <button onClick={toggle} aria-label="تغيير الوضع" className="grid h-10 w-10 place-items-center rounded-full border bg-card transition hover:border-primary">
       {dark ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
     </button>
+  );
+}
+
+const palettes = [
+  { id: "default", name: "الأصلي", c: ["#033030", "#AC0EFF", "#EFFE00"] },
+  { id: "sunset", name: "غروب", c: ["#5a1a10", "#e8552a", "#f5b942"] },
+  { id: "amber", name: "كهرماني", c: ["#4a2a10", "#e58a1f", "#f7e04a"] },
+  { id: "rose", name: "وردي", c: ["#4a0f1e", "#d9306a", "#f5a070"] },
+  { id: "coral", name: "مرجاني", c: ["#5a1f1a", "#f0604a", "#f2d08a"] },
+  { id: "ember", name: "جمر", c: ["#2e140c", "#c42a1e", "#f0a030"] },
+  { id: "peach", name: "خوخي", c: ["#5a3020", "#f08a5a", "#f5e0a0"] },
+];
+
+function PalettePicker() {
+  const [open, setOpen] = useState(false);
+  const [cur, setCur] = useState("default");
+  useEffect(() => {
+    const p = localStorage.getItem("palette") || "default";
+    setCur(p);
+    document.documentElement.dataset["palette"] = p;
+  }, []);
+  const pick = (id: string) => {
+    setCur(id);
+    document.documentElement.dataset["palette"] = id;
+    localStorage.setItem("palette", id);
+  };
+  return (
+    <div className="relative">
+      <button onClick={() => setOpen(!open)} className="btn-lime"><Palette className="h-4 w-4" /> تغيير الثيم</button>
+      {open && (
+        <div className="absolute bottom-full left-0 z-50 mb-3 w-72 rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
+          <p className="mb-3 font-bold">اختر ثيم الألوان</p>
+          <div className="grid grid-cols-3 gap-3">
+            {palettes.map((p) => (
+              <button key={p.id} onClick={() => pick(p.id)} className={`flex flex-col items-center gap-1 rounded-xl p-2 transition hover:bg-secondary ${cur === p.id ? "ring-2 ring-primary" : ""}`}>
+                <span className="relative grid h-12 w-12 place-items-center rounded-full" style={{ background: `linear-gradient(135deg, ${p.c[0]}, ${p.c[1]}, ${p.c[2]})` }}>
+                  {cur === p.id && <Check className="h-5 w-5 text-primary-foreground" />}
+                </span>
+                <span className="text-xs">{p.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -105,6 +150,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <span className="text-lg font-bold text-accent">©</span> {new Date().getFullYear()} جميع الحقوق محفوظة لقناة{" "}
               <span className="font-bold text-accent">{site.name}</span>
             </p>
+            <PalettePicker />
             <p className="opacity-70">صُنع بحب لطلاب العراق 🇮🇶</p>
           </div>
         </div>
