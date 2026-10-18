@@ -2,9 +2,9 @@
 
 export const site = {
   name: "مفاتيح النجاح",
-  tagline: "قناتك التعليمية الأولى لطلاب السادس الإعدادي في العراق",
+  tagline: "قناة خاصة بتوفير جميع ما يحتاجه الطلاب في مدارس المتميزين",
   telegramChannel: "https://t.me/your_channel",
-  contactUsername: "your_admin",
+  contactUsername: "O770ooo",
   email: "contact@example.com",
   donateLink: "https://t.me/your_admin",
 };
@@ -67,14 +67,14 @@ export const excellence = [
 
 // الحدود الدنيا دفعة 2026 (حدّثها عند صدور النتائج)
 export const minimums = [
-  { college: "الطب", score: "قريباً" },
-  { college: "طب الأسنان", score: "قريباً" },
-  { college: "الصيدلة", score: "قريباً" },
-  { college: "الهندسة", score: "قريباً" },
-  { college: "التمريض", score: "قريباً" },
-  { college: "العلوم", score: "قريباً" },
-  { college: "القانون", score: "قريباً" },
-  { college: "التربية", score: "قريباً" },
+  { college: "الطب", score: "98.53" },
+  { college: "طب الأسنان", score: "96.99" },
+  { college: "الصيدلة", score: "95.73" },
+  { college: "الهندسة", score: "75.37" },
+  { college: "التمريض", score: "90.8" },
+  { college: "العلوم", score: "70.43" },
+  { college: "القانون", score: "79.54" },
+  { college: "التربية", score: "70.41" },
 ];
 
 export const tips = [
