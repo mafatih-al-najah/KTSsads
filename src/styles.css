@@ -41,51 +41,85 @@
   --teal-foreground: oklch(1 0 0);
   --violet: oklch(0.58 0.29 310);
   --lime: oklch(0.95 0.21 115);
-  --background: oklch(0.985 0.005 300);
-  --foreground: oklch(0.22 0.04 195);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.04 195);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.04 195);
+  --background: color-mix(in oklab, var(--violet) 4%, white);
+  --foreground: color-mix(in oklab, var(--teal) 75%, black);
+  --card: color-mix(in oklab, var(--violet) 2%, white);
+  --card-foreground: color-mix(in oklab, var(--teal) 75%, black);
+  --popover: color-mix(in oklab, var(--violet) 2%, white);
+  --popover-foreground: color-mix(in oklab, var(--teal) 75%, black);
   --primary: var(--violet);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.02 300);
-  --secondary-foreground: oklch(0.27 0.05 195);
-  --muted: oklch(0.955 0.01 300);
-  --muted-foreground: oklch(0.48 0.03 220);
+  --secondary: color-mix(in oklab, var(--violet) 11%, white);
+  --secondary-foreground: color-mix(in oklab, var(--teal) 75%, black);
+  --muted: color-mix(in oklab, var(--violet) 7%, white);
+  --muted-foreground: color-mix(in oklab, var(--teal) 45%, oklch(0.6 0 0));
   --accent: var(--lime);
-  --accent-foreground: oklch(0.27 0.05 195);
+  --accent-foreground: color-mix(in oklab, var(--teal) 85%, black);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.02 300);
-  --input: oklch(0.9 0.02 300);
+  --border: color-mix(in oklab, var(--violet) 16%, white);
+  --input: color-mix(in oklab, var(--violet) 16%, white);
   --ring: var(--violet);
   --gradient-brand: linear-gradient(135deg, var(--teal) 0%, var(--violet) 60%, var(--lime) 120%);
-  --gradient-text: linear-gradient(90deg, var(--violet), oklch(0.75 0.2 200), var(--lime));
+  --gradient-text: linear-gradient(90deg, var(--violet), color-mix(in oklab, var(--violet) 35%, var(--lime)), var(--lime));
   --shadow-glow: 0 20px 50px -15px color-mix(in oklab, var(--violet) 45%, transparent);
 }
 
 .dark {
-  --background: oklch(0.17 0.035 195);
+  --background: color-mix(in oklab, var(--teal) 30%, oklch(0.15 0.01 260));
   --foreground: oklch(0.97 0.01 300);
-  --card: oklch(0.22 0.045 195);
+  --card: color-mix(in oklab, var(--teal) 45%, oklch(0.2 0.01 260));
   --card-foreground: oklch(0.97 0.01 300);
-  --popover: oklch(0.22 0.045 195);
+  --popover: color-mix(in oklab, var(--teal) 45%, oklch(0.2 0.01 260));
   --popover-foreground: oklch(0.97 0.01 300);
-  --secondary: oklch(0.28 0.05 195);
+  --secondary: color-mix(in oklab, var(--teal) 65%, oklch(0.28 0.01 260));
   --secondary-foreground: oklch(0.97 0.01 300);
-  --muted: oklch(0.25 0.04 195);
-  --muted-foreground: oklch(0.75 0.03 220);
+  --muted: color-mix(in oklab, var(--teal) 55%, oklch(0.24 0.01 260));
+  --muted-foreground: oklch(0.78 0.02 240);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
 }
 
-[data-palette="sunset"] { --teal: oklch(0.3 0.08 30); --violet: oklch(0.62 0.22 35); --lime: oklch(0.85 0.17 75); }
-[data-palette="amber"] { --teal: oklch(0.3 0.06 55); --violet: oklch(0.7 0.18 60); --lime: oklch(0.92 0.17 95); }
-[data-palette="rose"] { --teal: oklch(0.28 0.07 10); --violet: oklch(0.6 0.22 0); --lime: oklch(0.82 0.13 50); }
-[data-palette="coral"] { --teal: oklch(0.32 0.07 20); --violet: oklch(0.68 0.19 25); --lime: oklch(0.88 0.12 80); }
-[data-palette="ember"] { --teal: oklch(0.22 0.05 30); --violet: oklch(0.55 0.21 25); --lime: oklch(0.8 0.17 65); }
-[data-palette="peach"] { --teal: oklch(0.35 0.06 40); --violet: oklch(0.72 0.14 45); --lime: oklch(0.9 0.1 85); }
+/* ====== أزرق ودراسية ====== */
+[data-palette="ocean"] { --teal: #06263f; --violet: #1f6fd0; --lime: #7fdcff; }
+[data-palette="sky"] { --teal: #0a3557; --violet: #2f88d0; --lime: #b8ecff; }
+[data-palette="ice"] { --teal: #16324a; --violet: #3f7fc8; --lime: #eaf6ff; }
+[data-palette="steel"] { --teal: #16303f; --violet: #3f719c; --lime: #d5e8f5; }
+[data-palette="denim"] { --teal: #12233d; --violet: #3c62c4; --lime: #dbe7ff; }
+[data-palette="indigo"] { --teal: #151a3d; --violet: #4650cf; --lime: #c9d0ff; }
+[data-palette="midnight"] { --teal: #0a1230; --violet: #2f45a8; --lime: #93b4ff; }
+[data-palette="periwinkle"] { --teal: #22264a; --violet: #5b6cd8; --lime: #e2e6ff; }
+[data-palette="azure"] { --teal: #083048; --violet: #1d86b8; --lime: #c4f0ff; }
+[data-palette="slate"] { --teal: #1e2733; --violet: #4f6e8d; --lime: #dfe8f0; }
+
+/* ====== هادئة باردة ====== */
+[data-palette="cyan"] { --teal: #062e3a; --violet: #0f95b8; --lime: #c8f6ff; }
+[data-palette="teal"] { --teal: #033030; --violet: #0f948c; --lime: #d6fff5; }
+[data-palette="mint"] { --teal: #0c3530; --violet: #2f9a82; --lime: #d8ffe9; }
+[data-palette="sage"] { --teal: #22352a; --violet: #4f8a68; --lime: #e3f2d8; }
+[data-palette="forest"] { --teal: #0f2820; --violet: #2f8f5b; --lime: #dff5c8; }
+[data-palette="moss"] { --teal: #24311c; --violet: #5f7f36; --lime: #f0f7d0; }
+[data-palette="olive"] { --teal: #2a2f18; --violet: #6f7f2e; --lime: #f5f2c0; }
+[data-palette="mist"] { --teal: #23323a; --violet: #5f8798; --lime: #eaf5f7; }
+[data-palette="graphite"] { --teal: #1c1f22; --violet: #55606a; --lime: #eceff1; }
+
+/* ====== هادئة بنفسجية ====== */
+[data-palette="lavender"] { --teal: #2a2440; --violet: #7a68d0; --lime: #e6dcff; }
+[data-palette="lilac"] { --teal: #2b2338; --violet: #8a58c0; --lime: #f3e5ff; }
+[data-palette="plum"] { --teal: #2a1830; --violet: #8a3fa8; --lime: #f0d0f0; }
+
+/* ====== هادئة دافئة ====== */
+[data-palette="rose"] { --teal: #4a0f1e; --violet: #d9306a; --lime: #f5a070; }
+[data-palette="blush"] { --teal: #3a2028; --violet: #b85f80; --lime: #ffe6ee; }
+[data-palette="sunset"] { --teal: #5a1a10; --violet: #e8552a; --lime: #f5b942; }
+[data-palette="amber"] { --teal: #4a2a10; --violet: #d9821a; --lime: #f7e04a; }
+[data-palette="coral"] { --teal: #5a1f1a; --violet: #e85a44; --lime: #f2d08a; }
+[data-palette="ember"] { --teal: #2e140c; --violet: #c42a1e; --lime: #f0a030; }
+[data-palette="peach"] { --teal: #5a3020; --violet: #e07a4a; --lime: #f5e0a0; }
+[data-palette="sand"] { --teal: #3a2f1c; --violet: #a87c3e; --lime: #fff3d0; }
+[data-palette="honey"] { --teal: #3a2a10; --violet: #c08810; --lime: #fff0b0; }
+[data-palette="clay"] { --teal: #3a241c; --violet: #9a5a3a; --lime: #f5dcc0; }
+[data-palette="coffee"] { --teal: #2a1e16; --violet: #6a4529; --lime: #f0dcc0; }
 
 @layer base {
   * { border-color: var(--color-border); }

@@ -64,15 +64,19 @@ function PalettePicker() {
     <div className="relative">
       <button onClick={() => setOpen(!open)} className="btn-lime"><Palette className="h-4 w-4" /> تغيير الثيم</button>
       {open && (
-        <div className="absolute bottom-full left-0 z-50 mb-3 w-72 rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
+        <div className="absolute bottom-full left-0 z-50 mb-3 w-[20rem] rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
           <p className="mb-3 font-bold">اختر ثيم الألوان</p>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid max-h-72 grid-cols-6 gap-2 overflow-y-auto pe-1">
             {palettes.map((p) => (
-              <button key={p.id} onClick={() => pick(p.id)} className={`flex flex-col items-center gap-1 rounded-xl p-2 transition hover:bg-secondary ${cur === p.id ? "ring-2 ring-primary" : ""}`}>
-                <span className="relative grid h-12 w-12 place-items-center rounded-full" style={{ background: `linear-gradient(135deg, ${p.c[0]}, ${p.c[1]}, ${p.c[2]})` }}>
-                  {cur === p.id && <Check className="h-5 w-5 text-primary-foreground" />}
-                </span>
-                <span className="text-xs">{p.name}</span>
+              <button
+                key={p.id}
+                title={p.name}
+                aria-label={`ثيم ${p.name}`}
+                onClick={() => pick(p.id)}
+                className={`grid h-9 w-9 place-items-center rounded-full transition hover:scale-110 ${cur === p.id ? "ring-2 ring-primary ring-offset-2 ring-offset-card" : ""}`}
+                style={{ background: `linear-gradient(135deg, ${p.c[0]}, ${p.c[1]}, ${p.c[2]})` }}
+              >
+                {cur === p.id && <Check className="h-4 w-4 text-primary-foreground drop-shadow" />}
               </button>
             ))}
           </div>
