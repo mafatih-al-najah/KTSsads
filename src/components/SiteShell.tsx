@@ -39,12 +39,39 @@ function ThemeToggle() {
 
 const palettes = [
   { id: "default", name: "الأصلي", c: ["#033030", "#AC0EFF", "#EFFE00"] },
-  { id: "sunset", name: "غروب", c: ["#5a1a10", "#e8552a", "#f5b942"] },
-  { id: "amber", name: "كهرماني", c: ["#4a2a10", "#e58a1f", "#f7e04a"] },
+  { id: "ocean", name: "محيطي", c: ["#06263f", "#1f6fd0", "#7fdcff"] },
+  { id: "sky", name: "سماوي", c: ["#0a3557", "#2f88d0", "#b8ecff"] },
+  { id: "azure", name: "أزرق صافي", c: ["#083048", "#1d86b8", "#c4f0ff"] },
+  { id: "ice", name: "جليدي", c: ["#16324a", "#3f7fc8", "#eaf6ff"] },
+  { id: "steel", name: "فولاذي", c: ["#16303f", "#3f719c", "#d5e8f5"] },
+  { id: "denim", name: "جينزي", c: ["#12233d", "#3c62c4", "#dbe7ff"] },
+  { id: "indigo", name: "نيلي", c: ["#151a3d", "#4650cf", "#c9d0ff"] },
+  { id: "midnight", name: "ليلي", c: ["#0a1230", "#2f45a8", "#93b4ff"] },
+  { id: "periwinkle", name: "أزرق هادئ", c: ["#22264a", "#5b6cd8", "#e2e6ff"] },
+  { id: "slate", name: "أزرق رمادي", c: ["#1e2733", "#4f6e8d", "#dfe8f0"] },
+  { id: "cyan", name: "سماوي فيروزي", c: ["#062e3a", "#0f95b8", "#c8f6ff"] },
+  { id: "teal", name: "زمردي", c: ["#033030", "#0f948c", "#d6fff5"] },
+  { id: "mint", name: "نعناعي", c: ["#0c3530", "#2f9a82", "#d8ffe9"] },
+  { id: "sage", name: "مريمية", c: ["#22352a", "#4f8a68", "#e3f2d8"] },
+  { id: "forest", name: "غابي", c: ["#0f2820", "#2f8f5b", "#dff5c8"] },
+  { id: "moss", name: "طحلبي", c: ["#24311c", "#5f7f36", "#f0f7d0"] },
+  { id: "olive", name: "زيتوني", c: ["#2a2f18", "#6f7f2e", "#f5f2c0"] },
+  { id: "mist", name: "ضبابي", c: ["#23323a", "#5f8798", "#eaf5f7"] },
+  { id: "graphite", name: "فحمي", c: ["#1c1f22", "#55606a", "#eceff1"] },
+  { id: "lavender", name: "لافندر", c: ["#2a2440", "#7a68d0", "#e6dcff"] },
+  { id: "lilac", name: "ليلكي", c: ["#2b2338", "#8a58c0", "#f3e5ff"] },
+  { id: "plum", name: "برقوقي", c: ["#2a1830", "#8a3fa8", "#f0d0f0"] },
   { id: "rose", name: "وردي", c: ["#4a0f1e", "#d9306a", "#f5a070"] },
-  { id: "coral", name: "مرجاني", c: ["#5a1f1a", "#f0604a", "#f2d08a"] },
+  { id: "blush", name: "وردي شاحب", c: ["#3a2028", "#b85f80", "#ffe6ee"] },
+  { id: "sunset", name: "غروب", c: ["#5a1a10", "#e8552a", "#f5b942"] },
+  { id: "amber", name: "كهرماني", c: ["#4a2a10", "#d9821a", "#f7e04a"] },
+  { id: "coral", name: "مرجاني", c: ["#5a1f1a", "#e85a44", "#f2d08a"] },
   { id: "ember", name: "جمر", c: ["#2e140c", "#c42a1e", "#f0a030"] },
-  { id: "peach", name: "خوخي", c: ["#5a3020", "#f08a5a", "#f5e0a0"] },
+  { id: "peach", name: "خوخي", c: ["#5a3020", "#e07a4a", "#f5e0a0"] },
+  { id: "sand", name: "رملي", c: ["#3a2f1c", "#a87c3e", "#fff3d0"] },
+  { id: "honey", name: "عسلي", c: ["#3a2a10", "#c08810", "#fff0b0"] },
+  { id: "clay", name: "طيني", c: ["#3a241c", "#9a5a3a", "#f5dcc0"] },
+  { id: "coffee", name: "قهوائي", c: ["#2a1e16", "#6a4529", "#f0dcc0"] },
 ];
 
 function PalettePicker() {
@@ -64,15 +91,19 @@ function PalettePicker() {
     <div className="relative">
       <button onClick={() => setOpen(!open)} className="btn-lime"><Palette className="h-4 w-4" /> تغيير الثيم</button>
       {open && (
-        <div className="absolute bottom-full left-0 z-50 mb-3 w-72 rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
+        <div className="absolute bottom-full left-0 z-50 mb-3 w-[20rem] rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
           <p className="mb-3 font-bold">اختر ثيم الألوان</p>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid max-h-72 grid-cols-6 gap-2 overflow-y-auto pe-1">
             {palettes.map((p) => (
-              <button key={p.id} onClick={() => pick(p.id)} className={`flex flex-col items-center gap-1 rounded-xl p-2 transition hover:bg-secondary ${cur === p.id ? "ring-2 ring-primary" : ""}`}>
-                <span className="relative grid h-12 w-12 place-items-center rounded-full" style={{ background: `linear-gradient(135deg, ${p.c[0]}, ${p.c[1]}, ${p.c[2]})` }}>
-                  {cur === p.id && <Check className="h-5 w-5 text-primary-foreground" />}
-                </span>
-                <span className="text-xs">{p.name}</span>
+              <button
+                key={p.id}
+                title={p.name}
+                aria-label={`ثيم ${p.name}`}
+                onClick={() => pick(p.id)}
+                className={`grid h-9 w-9 place-items-center rounded-full transition hover:scale-110 ${cur === p.id ? "ring-2 ring-primary ring-offset-2 ring-offset-card" : ""}`}
+                style={{ background: `linear-gradient(135deg, ${p.c[0]}, ${p.c[1]}, ${p.c[2]})` }}
+              >
+                {cur === p.id && <Check className="h-4 w-4 text-primary-foreground drop-shadow" />}
               </button>
             ))}
           </div>
@@ -151,7 +182,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <span className="font-bold text-accent">{site.name}</span>
             </p>
             <PalettePicker />
-            <p className="opacity-70">صُنع بحب لطلاب العراق 🇮🇶</p>
+            <p className="flex items-center gap-2 opacity-70">صُنع بحب لطلاب العراق
+              <svg viewBox="0 0 21 14" className="h-3.5 w-5 rounded-[2px]" role="img" aria-label="علم العراق">
+                <rect width="21" height="4.67" fill="#CE1126" />
+                <rect y="4.67" width="21" height="4.67" fill="#FFFFFF" />
+                <rect y="9.34" width="21" height="4.66" fill="#0C7C3B" />
+              </svg>
+            </p>
           </div>
         </div>
       </footer>
