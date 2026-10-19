@@ -12,7 +12,7 @@ export const Route = createFileRoute("/about")({
   head: () => meta("من نحن", "تعرّف على قناة مفاتيح النجاح التعليمية ورسالتها لطلاب العراق."),
   component: () => (
     <>
-      <PageHero title="من نحن" subtitle="مفاتيح النجاح قناة تعليمية على التليكرام تجمع الطلاب والمدرسين والمصححين في مكان واحد" />
+      <PageHero title="من نحن" subtitle="مفاتيح النجاح قناة تعليمية على التليكرام تجمع الطلاب والمصححين في مكان واحد" />
       <div className="mx-auto grid max-w-6xl gap-5 px-4 py-14 md:grid-cols-3">
         {items.map(({ icon: I, t, b }) => (
           <div key={t} className="card-lift rounded-2xl border bg-card p-7 text-center">
