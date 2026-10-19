@@ -14,7 +14,7 @@ export const Route = createFileRoute("/correctors")({
             <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand text-primary-foreground"><UserCheck className="h-7 w-7" /></span>
             <h3 className="mt-4 text-lg font-bold">{c.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{c.subject}</p>
-            <p className="mt-2 text-sm font-semibold text-primary" dir="ltr">@{c.username}</p>
+            <a href={tg(c.username)} target="_blank" rel="noreferrer" className="mt-2 block text-sm font-semibold text-primary hover:underline" dir="ltr">@{c.username}</a>
             <a href={tg(c.username)} target="_blank" rel="noreferrer" className="btn-brand mt-5 w-full text-sm"><Send className="h-4 w-4" /> راسل المصحح</a>
           </div>
         ))}

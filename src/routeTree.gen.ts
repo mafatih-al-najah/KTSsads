@@ -18,7 +18,6 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ExcellenceRouteImport } from './routes/excellence'
 import { Route as MinimumsRouteImport } from './routes/minimums'
 import { Route as NotesRouteImport } from './routes/notes'
-import { Route as TeachersRouteImport } from './routes/teachers'
 import { Route as TipsRouteImport } from './routes/tips'
 
 const IndexRoute = IndexRouteImport.update({
@@ -66,11 +65,6 @@ const NotesRoute = NotesRouteImport.update({
   path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TeachersRoute = TeachersRouteImport.update({
-  id: '/teachers',
-  path: '/teachers',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TipsRoute = TipsRouteImport.update({
   id: '/tips',
   path: '/tips',
@@ -87,7 +81,6 @@ export interface FileRoutesByFullPath {
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
-  '/teachers': typeof TeachersRoute
   '/tips': typeof TipsRoute
 }
 export interface FileRoutesByTo {
@@ -100,7 +93,6 @@ export interface FileRoutesByTo {
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
-  '/teachers': typeof TeachersRoute
   '/tips': typeof TipsRoute
 }
 export interface FileRoutesById {
@@ -114,7 +106,6 @@ export interface FileRoutesById {
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
-  '/teachers': typeof TeachersRoute
   '/tips': typeof TipsRoute
 }
 export interface FileRouteTypes {
@@ -129,7 +120,6 @@ export interface FileRouteTypes {
     | '/excellence'
     | '/minimums'
     | '/notes'
-    | '/teachers'
     | '/tips'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -142,7 +132,6 @@ export interface FileRouteTypes {
     | '/excellence'
     | '/minimums'
     | '/notes'
-    | '/teachers'
     | '/tips'
   id:
     | '__root__'
@@ -155,7 +144,6 @@ export interface FileRouteTypes {
     | '/excellence'
     | '/minimums'
     | '/notes'
-    | '/teachers'
     | '/tips'
   fileRoutesById: FileRoutesById
 }
@@ -169,7 +157,6 @@ export interface RootRouteChildren {
   ExcellenceRoute: typeof ExcellenceRoute
   MinimumsRoute: typeof MinimumsRoute
   NotesRoute: typeof NotesRoute
-  TeachersRoute: typeof TeachersRoute
   TipsRoute: typeof TipsRoute
 }
 
@@ -238,13 +225,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/teachers': {
-      id: '/teachers'
-      path: '/teachers'
-      fullPath: '/teachers'
-      preLoaderRoute: typeof TeachersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tips': {
       id: '/tips'
       path: '/tips'
@@ -265,7 +245,6 @@ const rootRouteChildren: RootRouteChildren = {
   ExcellenceRoute: ExcellenceRoute,
   MinimumsRoute: MinimumsRoute,
   NotesRoute: NotesRoute,
-  TeachersRoute: TeachersRoute,
   TipsRoute: TipsRoute,
 }
 export const routeTree = rootRouteImport

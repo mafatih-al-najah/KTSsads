@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Menu, Moon, Sun, X, KeyRound, Send, Palette, Check } from "lucide-react";
-import { site } from "@/data/site";
+import { Menu, Moon, Sun, X, Send, Palette, Check } from "lucide-react";
+import { site, tg } from "@/data/site";
+import channelLogo from "@/assets/channel-logo.jpg.asset.json";
 
 export const nav = [
   { to: "/", label: "الرئيسية" },
   { to: "/notes", label: "الملازم" },
-  { to: "/teachers", label: "المدرسون" },
   { to: "/correctors", label: "المصححون" },
   { to: "/announcements", label: "الإعلانات" },
   { to: "/excellence", label: "امتياز المتميزين 2026" },
@@ -120,9 +120,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand shadow-glow">
-              <KeyRound className="h-5 w-5 text-primary-foreground" />
-            </span>
+            <img src={channelLogo.url} alt="شعار مفاتيح النجاح" className="h-12 w-12 shrink-0 rounded-lg object-contain" />
             <span className="font-display text-xl font-extrabold">{site.name}</span>
           </Link>
           <nav className="hidden items-center gap-1 xl:flex">
@@ -157,7 +155,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand"><KeyRound className="h-5 w-5" /></span>
+              <img src={channelLogo.url} alt="شعار مفاتيح النجاح" className="h-12 w-12 shrink-0 rounded-lg object-contain" />
               <span className="font-display text-2xl font-extrabold">{site.name}</span>
             </div>
             <p className="mt-4 text-sm opacity-80">{"\n"}</p>
@@ -171,8 +169,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
           <div>
             <h3 className="mb-4 font-bold text-accent">تواصل</h3>
-            <p className="text-sm opacity-85">تليكرام: @{site.contactUsername}</p>
-            <p className="mt-2 text-sm opacity-85">{site.email}</p>
+            <p className="text-sm opacity-85">تليكرام: <a href={tg(site.contactUsername)} target="_blank" rel="noreferrer" className="hover:underline" dir="ltr">@{site.contactUsername}</a></p>
+            <p className="mt-2 break-all text-sm opacity-85"><a href={`mailto:${site.email}`} className="hover:underline" dir="ltr">{site.email}</a></p>
           </div>
         </div>
         <div className="border-t border-teal-foreground/15">
