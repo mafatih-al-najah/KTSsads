@@ -1,3 +1,4 @@
-- [x] Replace the key icons with the uploaded channel logo.
-- [x] Remove the home statistics and teachers section.
-- [x] Make displayed usernames and emails direct links and verify them.
+- [ ] Add back and forward controls for internal page navigation.
+- [ ] Create owner-managed teacher advertisements with Telegram registration links.
+- [ ] Reduce the footer to a compact contact strip; keep the theme picker accessible.
+- [ ] Verify navigation, advertisement publishing, registration links, and footer.
