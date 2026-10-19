@@ -1,3 +1,3 @@
-- [ ] Replace the key icons with the uploaded channel logo.
-- [ ] Remove the home statistics and teachers section.
-- [ ] Make displayed usernames and emails direct links and verify them.
+- [x] Replace the key icons with the uploaded channel logo.
+- [x] Remove the home statistics and teachers section.
+- [x] Make displayed usernames and emails direct links and verify them.
