@@ -1,0 +1,18 @@
+CREATE TYPE public.app_role AS ENUM ('admin', 'user');
+CREATE TABLE public.user_roles (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE, role public.app_role NOT NULL, UNIQUE(user_id,role));
+GRANT SELECT ON public.user_roles TO authenticated;
+GRANT ALL ON public.user_roles TO service_role;
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY own_roles ON public.user_roles FOR SELECT TO authenticated USING(user_id=auth.uid());
+CREATE FUNCTION public.has_role(_user_id uuid, _role public.app_role) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path=public AS $$ SELECT EXISTS(SELECT 1 FROM public.user_roles WHERE user_id=_user_id AND role=_role) $$;
+REVOKE ALL ON FUNCTION public.has_role(uuid,public.app_role) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.has_role(uuid,public.app_role) TO authenticated,service_role;
+CREATE FUNCTION public.assign_site_owner() RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path=public AS $$ BEGIN IF lower(NEW.email)='sad6kts@gmail.com' AND NEW.email_confirmed_at IS NOT NULL THEN INSERT INTO public.user_roles(user_id,role) VALUES(NEW.id,'admin') ON CONFLICT DO NOTHING; END IF; RETURN NEW; END $$;
+CREATE TRIGGER assign_site_owner AFTER INSERT OR UPDATE OF email_confirmed_at,email ON auth.users FOR EACH ROW EXECUTE FUNCTION public.assign_site_owner();
+CREATE TABLE public.teacher_advertisements (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), title text NOT NULL CHECK(char_length(title) BETWEEN 1 AND 120), teacher_name text NOT NULL CHECK(char_length(teacher_name) BETWEEN 1 AND 100), subject text NOT NULL CHECK(char_length(subject) BETWEEN 1 AND 80), body text NOT NULL CHECK(char_length(body) BETWEEN 1 AND 3000), telegram_url text NOT NULL CHECK(telegram_url ~ '^https://t[.]me/[A-Za-z0-9_+/-]+$'), published boolean NOT NULL DEFAULT true, created_at timestamptz NOT NULL DEFAULT now());
+GRANT SELECT ON public.teacher_advertisements TO anon;
+GRANT SELECT,INSERT,UPDATE,DELETE ON public.teacher_advertisements TO authenticated;
+GRANT ALL ON public.teacher_advertisements TO service_role;
+ALTER TABLE public.teacher_advertisements ENABLE ROW LEVEL SECURITY;
+CREATE POLICY published_ads ON public.teacher_advertisements FOR SELECT TO anon,authenticated USING(published=true);
+CREATE POLICY admin_ads ON public.teacher_advertisements FOR ALL TO authenticated USING(public.has_role(auth.uid(),'admin')) WITH CHECK(public.has_role(auth.uid(),'admin'));
