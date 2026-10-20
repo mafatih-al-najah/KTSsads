@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Menu, Moon, Sun, X, Send, Palette, Check } from "lucide-react";
+import { Menu, Moon, Sun, X, Send, Palette, Check, Mail } from "lucide-react";
 import { site, tg } from "@/data/site";
 import channelLogo from "@/assets/channel-logo.jpg.asset.json";
+import { PageNavigation } from "@/components/PageNavigation";
+import { Button } from "@/components/ui/button";
 
 export const nav = [
   { to: "/", label: "الرئيسية" },
@@ -89,9 +91,9 @@ function PalettePicker() {
   };
   return (
     <div className="relative">
-      <button onClick={() => setOpen(!open)} className="btn-lime"><Palette className="h-4 w-4" /> تغيير الثيم</button>
+      <Button variant="outline" size="icon" onClick={() => setOpen(!open)} aria-label="تغيير الثيم" title="تغيير الثيم"><Palette className="h-4 w-4" /></Button>
       {open && (
-        <div className="absolute bottom-full left-0 z-50 mb-3 w-[20rem] rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
+        <div className="absolute left-0 top-full z-50 mt-3 w-[min(20rem,calc(100vw-2rem))] rounded-2xl border bg-card p-4 text-card-foreground shadow-glow">
           <p className="mb-3 font-bold">اختر ثيم الألوان</p>
           <div className="grid max-h-72 grid-cols-6 gap-2 overflow-y-auto pe-1">
             {palettes.map((p) => (
@@ -131,6 +133,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <PalettePicker />
             <ThemeToggle />
             <button onClick={() => setOpen(!open)} aria-label="القائمة" className="grid h-10 w-10 place-items-center rounded-full border bg-card">
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -148,47 +151,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </div>
           </div>
         )}
+        <PageNavigation />
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="relative mt-20 overflow-hidden bg-teal text-teal-foreground">
-        <div className="absolute inset-x-0 top-0 h-1 bg-brand" />
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <img src={channelLogo.url} alt="شعار مفاتيح النجاح" className="h-12 w-12 shrink-0 rounded-lg object-contain" />
-              <span className="font-display text-2xl font-extrabold">{site.name}</span>
-            </div>
-            <p className="mt-4 text-sm opacity-80">{"\n"}</p>
-            <a href={site.telegramChannel} target="_blank" rel="noreferrer" className="btn-lime mt-6"><Send className="h-4 w-4" /> انضم للقناة</a>
-          </div>
-          <div>
-            <h3 className="mb-4 font-bold text-accent">أقسام الموقع</h3>
-            <div className="grid grid-cols-2 gap-2 text-sm opacity-85">
-              {nav.map((n) => <Link key={n.to} to={n.to} className="hover:text-accent">{n.label}</Link>)}
-            </div>
-          </div>
-          <div>
-            <h3 className="mb-4 font-bold text-accent">تواصل</h3>
-            <p className="text-sm opacity-85">تليكرام: <a href={tg(site.contactUsername)} target="_blank" rel="noreferrer" className="hover:underline" dir="ltr">@{site.contactUsername}</a></p>
-            <p className="mt-2 break-all text-sm opacity-85"><a href={`mailto:${site.email}`} className="hover:underline" dir="ltr">{site.email}</a></p>
-          </div>
-        </div>
-        <div className="border-t border-teal-foreground/15">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-sm md:flex-row">
-            <p>
-              <span className="text-lg font-bold text-accent">©</span> {new Date().getFullYear()} جميع الحقوق محفوظة لقناة{" "}
-              <span className="font-bold text-accent">{site.name}</span>
-            </p>
-            <PalettePicker />
-            <p className="flex items-center gap-2 opacity-70">صُنع بحب لطلاب العراق
-              <svg viewBox="0 0 21 14" className="h-3.5 w-5 rounded-[2px] ring-1 ring-teal-foreground/15" role="img" aria-label="علم العراق">
-                <rect width="21" height="4.67" fill="#CE1126" />
-                <rect y="4.67" width="21" height="4.67" fill="#FFFFFF" />
-                <rect y="9.34" width="21" height="4.66" fill="#000000" />
-                <text x="10.5" y="8.15" textAnchor="middle" direction="rtl" fill="#0C7C3B" fontSize="3.2" fontWeight="700" fontFamily="'Cairo', sans-serif">الله أكبر</text>
-              </svg>
-            </p>
-          </div>
+      <footer className="mt-10 border-t bg-teal text-teal-foreground">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-4 py-4 text-sm">
+          <Link to="/contact" className="font-bold text-accent hover:underline">تواصل معنا</Link>
+          <a href={tg(site.contactUsername)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Send className="h-4 w-4" /><span dir="ltr">@{site.contactUsername}</span></a>
+          <a href={`mailto:${site.email}`} className="inline-flex min-w-0 items-center gap-2 hover:underline"><Mail className="h-4 w-4 shrink-0" /><span dir="ltr" className="break-all">{site.email}</span></a>
         </div>
       </footer>
     </div>
