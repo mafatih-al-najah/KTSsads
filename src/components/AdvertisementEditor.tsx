@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import { advertisementSchema, type TeacherAdvertisement } from "@/lib/advertisements";
 import { saveTeacherAdvertisement } from "@/lib/advertisements.functions";
 
-export function AdvertisementEditor({ advertisement, onClose }: { advertisement?: TeacherAdvertisement; onClose: () => void }) {
+export function AdvertisementEditor({ advertisement, onClose }: { advertisement?: TeacherAdvertisement | undefined; onClose: () => void }) {
   const save = useServerFn(saveTeacherAdvertisement);
   const queryClient = useQueryClient();
   const [busy, setBusy] = useState(false);
