@@ -22,6 +22,13 @@
       "when": 1792480894493,
       "tag": "0002_restrict_public_role_checks",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792614388968,
+      "tag": "0003_excellence_pdf_storage",
+      "breakpoints": true
     }
   ]
 }
