@@ -2,4 +2,3 @@
 - [x] Create owner-managed teacher advertisements with Telegram registration links.
 - [x] Reduce the footer to a compact contact strip; keep the theme picker accessible.
 - [x] Verify back/forward, login views, public listings, Telegram URL rules, footer and mobile layout.
-- [ ] Verify authenticated advertisement publishing and owner-role assignment — blocked until the owner signs up and confirms the configured email; Cloud currently has no auth users.

@@ -13,7 +13,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteShell } from "@/components/SiteShell";
-import { OwnerSession } from "@/components/OwnerSession";
 
 function NotFoundComponent() {
   return (
@@ -118,9 +117,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <OwnerSession><SiteShell>
+      <SiteShell>
         <Outlet />
-      </SiteShell></OwnerSession>
+      </SiteShell>
     </QueryClientProvider>
   );
 }
