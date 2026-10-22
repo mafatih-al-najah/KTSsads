@@ -22,11 +22,11 @@ function ExcellencePage() {
   }, [version]);
 
   const upload = async (file: File) => {
-    if (file.type !== "application/pdf") return toast.error("اختر ملف PDF فقط");
+    if (file.type !== "application/pdf") { toast.error("اختر ملف PDF فقط"); return; }
     setBusy(true);
     const { error } = await supabase.storage.from("excellence").upload("excellence.pdf", file, { upsert: true, contentType: "application/pdf" });
     setBusy(false);
-    if (error) return toast.error("ما نجح الرفع: " + error.message);
+    if (error) { toast.error("ما نجح الرفع: " + error.message); return; }
     toast.success("تم رفع الملف");
     setVersion((v) => v + 1);
   };
@@ -35,7 +35,7 @@ function ExcellencePage() {
     setBusy(true);
     const { error } = await supabase.storage.from("excellence").remove(["excellence.pdf"]);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("تم حذف الملف");
     setVersion((v) => v + 1);
   };
