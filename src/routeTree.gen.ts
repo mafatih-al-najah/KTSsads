@@ -19,7 +19,6 @@ import { Route as ExcellenceRouteImport } from './routes/excellence'
 import { Route as MinimumsRouteImport } from './routes/minimums'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as TipsRouteImport } from './routes/tips'
-import { Route as ApiPublicExcellencePdfRouteImport } from './routes/api/public/excellence-pdf'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,11 +70,6 @@ const TipsRoute = TipsRouteImport.update({
   path: '/tips',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicExcellencePdfRoute = ApiPublicExcellencePdfRouteImport.update({
-  id: '/api/public/excellence-pdf',
-  path: '/api/public/excellence-pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,7 +82,6 @@ export interface FileRoutesByFullPath {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
   '/tips': typeof TipsRoute
-  '/api/public/excellence-pdf': typeof ApiPublicExcellencePdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,7 +94,6 @@ export interface FileRoutesByTo {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
   '/tips': typeof TipsRoute
-  '/api/public/excellence-pdf': typeof ApiPublicExcellencePdfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -115,7 +107,6 @@ export interface FileRoutesById {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRoute
   '/tips': typeof TipsRoute
-  '/api/public/excellence-pdf': typeof ApiPublicExcellencePdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -130,7 +121,6 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
-    | '/api/public/excellence-pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -143,7 +133,6 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
-    | '/api/public/excellence-pdf'
   id:
     | '__root__'
     | '/'
@@ -156,7 +145,6 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
-    | '/api/public/excellence-pdf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,7 +158,6 @@ export interface RootRouteChildren {
   MinimumsRoute: typeof MinimumsRoute
   NotesRoute: typeof NotesRoute
   TipsRoute: typeof TipsRoute
-  ApiPublicExcellencePdfRoute: typeof ApiPublicExcellencePdfRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,13 +232,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TipsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/excellence-pdf': {
-      id: '/api/public/excellence-pdf'
-      path: '/api/public/excellence-pdf'
-      fullPath: '/api/public/excellence-pdf'
-      preLoaderRoute: typeof ApiPublicExcellencePdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -266,7 +246,6 @@ const rootRouteChildren: RootRouteChildren = {
   MinimumsRoute: MinimumsRoute,
   NotesRoute: NotesRoute,
   TipsRoute: TipsRoute,
-  ApiPublicExcellencePdfRoute: ApiPublicExcellencePdfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
