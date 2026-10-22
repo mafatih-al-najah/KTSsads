@@ -87,3 +87,16 @@ export const tips = [
 ];
 
 export const tg = (u: string) => `https://t.me/${u.replace(/^@/, "")}`;
+
+// 📄 ملفات PDF: ضع رابط الملف بين علامتي التنصيص.
+// الطريقة: ارفع الملف على Google Drive ← مشاركة ← "أي شخص لديه الرابط" ← انسخ الرابط والصقه هنا.
+// أو ضع الملف داخل مجلد public/files باسم مثل excellence.pdf واكتب هنا "/files/excellence.pdf"
+export const pdfFiles = {
+  excellence: "",
+  minimums: "",
+};
+
+// 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
+export const teacherAds: { title: string; teacher: string; subject: string; body: string; telegram: string }[] = [
+  // { title: "دورة الرياضيات المكثفة", teacher: "أ. أحمد", subject: "الرياضيات", body: "تفاصيل الإعلان هنا", telegram: "https://t.me/username" },
+];
