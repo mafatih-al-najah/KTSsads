@@ -122,7 +122,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
-            <img src={channelLogo.url} alt="شعار مفاتيح النجاح" className="h-12 w-12 shrink-0 object-contain dark:invert" />
+            <img src={site.logoUrl || channelLogo.url} alt="شعار مفاتيح النجاح" className="h-12 w-12 shrink-0 object-contain dark:invert" />
             <span className="font-display text-xl font-extrabold">{site.name}</span>
           </Link>
           <nav className="hidden items-center gap-1 xl:flex">

@@ -7,6 +7,14 @@ export const site = {
   contactUsername: "O770ooo",
   email: "contact@example.com",
   donateLink: "https://t.me/your_admin",
+
+  // 🖼️ شعار الموقع: الصق هنا رابط الصورة المباشر (ينتهي بـ .png أو .jpg).
+  // إذا تركته فارغاً "" يظهر الشعار الحالي الموجود بملفات الموقع.
+  logoUrl: "",
+
+  // 🖼️ صورة صفحة «امتياز المتميزين 2026»: الصق هنا رابط الصورة المباشر.
+  // إذا تركته فارغاً "" تظهر جملة «سيتم نشر الصورة قريباً» بدل الصورة.
+  excellenceImageUrl: "",
 };
 
 export const subjects = [
