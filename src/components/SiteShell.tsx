@@ -120,20 +120,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div dir="rtl" className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src={site.logoUrl || "/favicon.png"}
-              alt="شعار مفاتيح النجاح"
-              referrerPolicy="no-referrer"
-              className="h-12 w-12 shrink-0 object-contain dark:invert"
-              onError={(e) => {
-                const el = e.currentTarget;
-                if (el.dataset.fallback === "done") return;
-                el.dataset.fallback = "done";
-                el.src = "/favicon.png";
-                el.classList.remove("dark:invert");
-              }}
-            />
+          <Link to="/" className="group flex items-center gap-3">
+            <span className="logo-ring relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full p-[2px] transition-transform duration-300 group-hover:scale-105">
+              <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--color-primary,#033030),var(--color-accent,#AC0EFF),var(--color-secondary,#1f6fd0),var(--color-primary,#033030))] opacity-90" />
+              <span className="relative grid h-full w-full place-items-center overflow-hidden rounded-full bg-card">
+                <img
+                  src={site.logoUrl || "/favicon.png"}
+                  alt="شعار مفاتيح النجاح"
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-[6deg]"
+                  onError={(e) => {
+                    const el = e.currentTarget;
+                    if (el.dataset.fallback === "done") return;
+                    el.dataset.fallback = "done";
+                    el.src = "/favicon.png";
+                  }}
+                />
+              </span>
+            </span>
             <span className="font-display text-xl font-extrabold">{site.name}</span>
           </Link>
           <nav className="hidden items-center gap-1 xl:flex">
