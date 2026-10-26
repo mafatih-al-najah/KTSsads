@@ -16,7 +16,9 @@ export const site = {
 
   // 🖼️ صورة صفحة «امتياز المتميزين 2026»: الصق هنا رابط الصورة المباشر.
   // إذا تركته فارغاً "" تظهر جملة «سيتم نشر الصورة قريباً» بدل الصورة.
-  excellenceImageUrl: "",
+  // ملاحظة: روابط معاينة imghippo ليست روابط صور مباشرة ويحظر خادمها التضمين الخارجي،
+  // لذا الصورة محفوظة محلياً في public/excellence-2026.jpg.
+  excellenceImageUrl: "/excellence-2026.jpg",
 };
 
 export const subjects = [
