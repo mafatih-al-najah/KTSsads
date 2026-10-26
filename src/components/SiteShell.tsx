@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { Menu, Moon, Sun, X, Send, Palette, Check, Mail } from "lucide-react";
 import { site, tg } from "@/data/site";
-import channelLogo from "@/assets/channel-logo.png.asset.json";
 import { PageNavigation } from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
 
@@ -123,7 +122,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
             <img
-              src={site.logoUrl || channelLogo.url}
+              src={site.logoUrl || "/favicon.png"}
               alt="شعار مفاتيح النجاح"
               referrerPolicy="no-referrer"
               className="h-12 w-12 shrink-0 object-contain dark:invert"
@@ -131,7 +130,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 const el = e.currentTarget;
                 if (el.dataset.fallback === "done") return;
                 el.dataset.fallback = "done";
-                el.src = channelLogo.url;
+                el.src = "/favicon.png";
                 el.classList.remove("dark:invert");
               }}
             />
