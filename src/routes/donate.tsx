@@ -20,8 +20,7 @@ export const Route = createFileRoute("/donate")({
             className="btn-lime mt-8 text-lg"
           >
             <Send className="h-5 w-5" />
-            <span>ادعمنا الآن — </span>
-            <span dir="ltr">@{site.donateUsername}</span>
+            <span>ادعمنا الآن</span>
           </a>
         </div>
       </div>

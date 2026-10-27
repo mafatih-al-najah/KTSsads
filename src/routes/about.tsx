@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FolderSearch, Users, MessageCircle, Send, Crown } from "lucide-react";
+import { FolderSearch, MessageCircle, Send, Crown } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 import { site, tg } from "@/data/site";
 
@@ -74,10 +74,6 @@ export const Route = createFileRoute("/about")({
               </a>
             </div>
 
-            <p className="mt-8 text-sm text-muted-foreground">
-              <Users className="me-1 inline h-4 w-4 align-text-bottom" />
-              نجمع الطلاب والمصححين في مكان واحد، لنوفر وقتك وتركزك على الأهم.
-            </p>
           </div>
         </div>
       </section>
