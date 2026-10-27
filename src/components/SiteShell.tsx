@@ -10,7 +10,7 @@ export const nav = [
   { to: "/notes", label: "الملازم" },
   { to: "/correctors", label: "المصححون" },
   { to: "/announcements", label: "الإعلانات" },
-  { to: "/excellence", label: "امتياز المتميزين 2026" },
+  { to: "/excellence", label: "امتيازات المتميزين 2026" },
   { to: "/minimums", label: "الحدود الدنيا 2026" },
   { to: "/tips", label: "نصائح الطلاب" },
   { to: "/donate", label: "تبرع وادعم" },

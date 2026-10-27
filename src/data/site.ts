@@ -4,9 +4,9 @@ export const site = {
   name: "مفاتيح النجاح",
   tagline: "قناة خاصة بتوفير جميع ما يحتاجه الطلاب في مدارس المتميزين",
   telegramChannel: "https://t.me/your_channel",
-  contactUsername: "O770ooo",
-  email: "contact@example.com",
-  donateLink: "https://t.me/your_admin",
+  contactUsername: "accKTS",
+  email: "Sad6kts@gmail.com",
+  donateUsername: "i1_h0",
 
   // 🖼️ شعار الموقع: الصق هنا رابط الصورة المباشر (ينتهي بـ .png أو .jpg).
   // إذا تركته فارغاً "" يظهر الشعار الحالي الموجود بملفات الموقع.
