@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 export const nav = [
   { to: "/", label: "الرئيسية" },
   { to: "/notes", label: "الملازم" },
+  { to: "/books", label: "الكتب" },
   { to: "/excellence", label: "امتيازات المتميزين 2026" },
   { to: "/minimums", label: "الحدود الدنيا 2026" },
   { to: "/tips", label: "نصائح الطلاب" },

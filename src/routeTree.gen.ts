@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
+import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CorrectorsRouteImport } from './routes/correctors'
 import { Route as DonateRouteImport } from './routes/donate'
@@ -19,6 +20,10 @@ import { Route as ExcellenceRouteImport } from './routes/excellence'
 import { Route as MinimumsRouteImport } from './routes/minimums'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as TipsRouteImport } from './routes/tips'
+import { Route as BooksArabicRouteImport } from './routes/books/arabic'
+import { Route as BooksExcellenceRouteImport } from './routes/books/excellence'
+import { Route as NotesIndicatedRouteImport } from './routes/notes/indicated'
+import { Route as NotesTeachersRouteImport } from './routes/notes/teachers'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,6 +38,11 @@ const AboutRoute = AboutRouteImport.update({
 const AnnouncementsRoute = AnnouncementsRouteImport.update({
   id: '/announcements',
   path: '/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksRoute = BooksRouteImport.update({
+  id: '/books',
+  path: '/books',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -70,43 +80,78 @@ const TipsRoute = TipsRouteImport.update({
   path: '/tips',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BooksArabicRoute = BooksArabicRouteImport.update({
+  id: '/arabic',
+  path: '/arabic',
+  getParentRoute: () => BooksRoute,
+} as any)
+const BooksExcellenceRoute = BooksExcellenceRouteImport.update({
+  id: '/excellence',
+  path: '/excellence',
+  getParentRoute: () => BooksRoute,
+} as any)
+const NotesIndicatedRoute = NotesIndicatedRouteImport.update({
+  id: '/indicated',
+  path: '/indicated',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesTeachersRoute = NotesTeachersRouteImport.update({
+  id: '/teachers',
+  path: '/teachers',
+  getParentRoute: () => NotesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/books': typeof BooksRouteWithChildren
   '/contact': typeof ContactRoute
   '/correctors': typeof CorrectorsRoute
   '/donate': typeof DonateRoute
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
+  '/books/arabic': typeof BooksArabicRoute
+  '/books/excellence': typeof BooksExcellenceRoute
+  '/notes/indicated': typeof NotesIndicatedRoute
+  '/notes/teachers': typeof NotesTeachersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/books': typeof BooksRouteWithChildren
   '/contact': typeof ContactRoute
   '/correctors': typeof CorrectorsRoute
   '/donate': typeof DonateRoute
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
+  '/books/arabic': typeof BooksArabicRoute
+  '/books/excellence': typeof BooksExcellenceRoute
+  '/notes/indicated': typeof NotesIndicatedRoute
+  '/notes/teachers': typeof NotesTeachersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/books': typeof BooksRouteWithChildren
   '/contact': typeof ContactRoute
   '/correctors': typeof CorrectorsRoute
   '/donate': typeof DonateRoute
   '/excellence': typeof ExcellenceRoute
   '/minimums': typeof MinimumsRoute
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
+  '/books/arabic': typeof BooksArabicRoute
+  '/books/excellence': typeof BooksExcellenceRoute
+  '/notes/indicated': typeof NotesIndicatedRoute
+  '/notes/teachers': typeof NotesTeachersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,6 +159,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/announcements'
+    | '/books'
     | '/contact'
     | '/correctors'
     | '/donate'
@@ -121,11 +167,16 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
+    | '/books/arabic'
+    | '/books/excellence'
+    | '/notes/indicated'
+    | '/notes/teachers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/announcements'
+    | '/books'
     | '/contact'
     | '/correctors'
     | '/donate'
@@ -133,11 +184,16 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
+    | '/books/arabic'
+    | '/books/excellence'
+    | '/notes/indicated'
+    | '/notes/teachers'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/announcements'
+    | '/books'
     | '/contact'
     | '/correctors'
     | '/donate'
@@ -145,18 +201,23 @@ export interface FileRouteTypes {
     | '/minimums'
     | '/notes'
     | '/tips'
+    | '/books/arabic'
+    | '/books/excellence'
+    | '/notes/indicated'
+    | '/notes/teachers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AnnouncementsRoute: typeof AnnouncementsRoute
+  BooksRoute: typeof BooksRouteWithChildren
   ContactRoute: typeof ContactRoute
   CorrectorsRoute: typeof CorrectorsRoute
   DonateRoute: typeof DonateRoute
   ExcellenceRoute: typeof ExcellenceRoute
   MinimumsRoute: typeof MinimumsRoute
-  NotesRoute: typeof NotesRoute
+  NotesRoute: typeof NotesRouteWithChildren
   TipsRoute: typeof TipsRoute
 }
 
@@ -181,6 +242,13 @@ declare module '@tanstack/react-router' {
       path: '/announcements'
       fullPath: '/announcements'
       preLoaderRoute: typeof AnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books': {
+      id: '/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof BooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -232,19 +300,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TipsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/books/arabic': {
+      id: '/books/arabic'
+      path: '/arabic'
+      fullPath: '/books/arabic'
+      preLoaderRoute: typeof BooksArabicRouteImport
+      parentRoute: typeof BooksRoute
+    }
+    '/books/excellence': {
+      id: '/books/excellence'
+      path: '/excellence'
+      fullPath: '/books/excellence'
+      preLoaderRoute: typeof BooksExcellenceRouteImport
+      parentRoute: typeof BooksRoute
+    }
+    '/notes/indicated': {
+      id: '/notes/indicated'
+      path: '/indicated'
+      fullPath: '/notes/indicated'
+      preLoaderRoute: typeof NotesIndicatedRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/teachers': {
+      id: '/notes/teachers'
+      path: '/teachers'
+      fullPath: '/notes/teachers'
+      preLoaderRoute: typeof NotesTeachersRouteImport
+      parentRoute: typeof NotesRoute
+    }
   }
 }
+
+interface BooksRouteChildren {
+  BooksArabicRoute: typeof BooksArabicRoute
+  BooksExcellenceRoute: typeof BooksExcellenceRoute
+}
+
+const BooksRouteChildren: BooksRouteChildren = {
+  BooksArabicRoute: BooksArabicRoute,
+  BooksExcellenceRoute: BooksExcellenceRoute,
+}
+
+const BooksRouteWithChildren = BooksRoute._addFileChildren(BooksRouteChildren)
+
+interface NotesRouteChildren {
+  NotesIndicatedRoute: typeof NotesIndicatedRoute
+  NotesTeachersRoute: typeof NotesTeachersRoute
+}
+
+const NotesRouteChildren: NotesRouteChildren = {
+  NotesIndicatedRoute: NotesIndicatedRoute,
+  NotesTeachersRoute: NotesTeachersRoute,
+}
+
+const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AnnouncementsRoute: AnnouncementsRoute,
+  BooksRoute: BooksRouteWithChildren,
   ContactRoute: ContactRoute,
   CorrectorsRoute: CorrectorsRoute,
   DonateRoute: DonateRoute,
   ExcellenceRoute: ExcellenceRoute,
   MinimumsRoute: MinimumsRoute,
-  NotesRoute: NotesRoute,
+  NotesRoute: NotesRouteWithChildren,
   TipsRoute: TipsRoute,
 }
 export const routeTree = rootRouteImport

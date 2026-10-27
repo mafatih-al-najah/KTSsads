@@ -4,7 +4,7 @@ export const site = {
   name: "مفاتيح النجاح",
   tagline: "قناة خاصة بتوفير جميع ما يحتاجه الطلاب في مدارس المتميزين",
   telegramChannel: "https://t.me/sad6ths",
-  contactUsername: "O770ooo",
+  contactUsername: "accKTS",
   email: "Sad6kts@gmail.com",
   donateUsername: "i1_h0",
 
@@ -44,18 +44,6 @@ export const teachers: Partial<
 > = {
   بغداد: { الرياضيات: { name: "أ. مثال", username: "example_teacher" } },
 };
-
-// الملازم: كل ملزمة رابطها يؤدي إلى قناة تليكرام
-export const notes = [
-  { subject: "الرياضيات", title: "ملزمة الرياضيات الشاملة", link: "https://t.me/your_channel" },
-  { subject: "الفيزياء", title: "ملزمة الفيزياء — الفصول كاملة", link: "https://t.me/your_channel" },
-  { subject: "الكيمياء", title: "ملزمة الكيمياء مع الأسئلة الوزارية", link: "https://t.me/your_channel" },
-  { subject: "الأحياء", title: "ملزمة الأحياء المختصرة", link: "https://t.me/your_channel" },
-  { subject: "الإنكليزي", title: "ملزمة الإنكليزي — قواعد ومفردات", link: "https://t.me/your_channel" },
-  { subject: "العربي", title: "ملزمة العربي — نحو وأدب", link: "https://t.me/your_channel" },
-  { subject: "الإسلامية", title: "ملزمة الإسلامية", link: "https://t.me/your_channel" },
-  { subject: "الفرنسي", title: "ملزمة الفرنسي", link: "https://t.me/your_channel" },
-];
 
 // المصححون: غيّر اليوزر هنا متى شئت
 export const correctors = [
