@@ -105,7 +105,8 @@ export const tg = (u: string) => `https://t.me/${u.replace(/^@/, "")}`;
 // أو ضع الملف داخل مجلد public/files باسم مثل excellence.pdf واكتب هنا "/files/excellence.pdf"
 export const pdfFiles = {
   excellence: "",
-  minimums: "",
+  // يمكن استبدال هذا المسار برابط Google Drive بعد رفع الملف ومشاركته.
+  minimums: "/الحدودالدنيا-للقبول-المركزي-للسنةالدراسية_ copy.pdf",
 };
 
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
