@@ -39,8 +39,8 @@
   --radius: 1rem;
   --teal: oklch(0.27 0.05 195);
   --teal-foreground: oklch(1 0 0);
-  --violet: oklch(0.58 0.29 310);
-  --lime: oklch(0.95 0.21 115);
+  --violet: oklch(0.54 0.12 240);
+  --lime: oklch(0.93 0.18 118);
   --background: color-mix(in oklab, var(--violet) 4%, white);
   --foreground: color-mix(in oklab, var(--teal) 75%, black);
   --card: color-mix(in oklab, var(--violet) 2%, white);
@@ -60,8 +60,8 @@
   --border: color-mix(in oklab, var(--violet) 16%, white);
   --input: color-mix(in oklab, var(--violet) 16%, white);
   --ring: var(--violet);
-  --gradient-brand: linear-gradient(135deg, var(--teal) 0%, var(--violet) 60%, var(--lime) 120%);
-  --gradient-text: linear-gradient(90deg, var(--violet), color-mix(in oklab, var(--violet) 45%, var(--lime)) 55%, color-mix(in oklab, var(--lime) 55%, var(--teal)));
+  --gradient-brand: linear-gradient(135deg, var(--teal) 0%, color-mix(in oklab, var(--teal) 70%, var(--violet)) 100%);
+  --gradient-text: linear-gradient(90deg, var(--violet), color-mix(in oklab, var(--violet) 60%, var(--teal)));
   --shadow-glow: 0 20px 50px -15px color-mix(in oklab, var(--violet) 45%, transparent);
 }
 
@@ -168,6 +168,13 @@
 @utility logo-ring {
   box-shadow: 0 4px 14px -4px color-mix(in oklab, var(--color-primary, #033030) 45%, transparent);
   animation: logo-pop .5s cubic-bezier(.22,1,.36,1) both;
+}
+@utility announce-in {
+  animation: announce-in .45s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes announce-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes logo-pop {
   from { opacity: 0; transform: scale(.6) rotate(-8deg); }

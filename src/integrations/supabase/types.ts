@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      site_announcements: {
+        Row: {
+          cta_label: string | null
+          cta_url: string | null
+          created_at: string
+          icon: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          message: string
+        }
+        Insert: {
+          cta_label?: string | null
+          cta_url?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          message: string
+        }
+        Update: {
+          cta_label?: string | null
+          cta_url?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          message?: string
+        }
+        Relationships: []
+      }
       teacher_advertisements: {
         Row: {
           body: string

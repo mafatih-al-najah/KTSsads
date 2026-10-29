@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Menu, Moon, Sun, X, Send, Palette, Check, Mail } from "lucide-react";
 import { site, tg } from "@/data/site";
 import { PageNavigation } from "@/components/PageNavigation";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Button } from "@/components/ui/button";
 
 export const nav = [
@@ -140,8 +141,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <span className="font-display text-xl font-extrabold">{site.name}</span>
           </Link>
           <nav className="hidden items-center gap-1 xl:flex">
-            {nav.slice(0, 8).map((n) => (
-              <Link key={n.to} to={n.to} activeOptions={{ exact: true }} className="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground" activeProps={{ className: "bg-secondary text-foreground" }}>
+            {nav.map((n) => (
+              <Link key={n.to} to={n.to} activeOptions={{ exact: true }} className="rounded-full px-2.5 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground" activeProps={{ className: "bg-secondary text-foreground" }}>
                 {n.label}
               </Link>
             ))}
@@ -154,6 +155,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </div>
+        <AnnouncementBar />
         {open && (
           <div className="border-t bg-background">
             <div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 p-4 md:grid-cols-4">

@@ -52,7 +52,7 @@ const SECURITY_HEADERS: Record<string, string> = {
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: https:",
     "frame-src https://drive.google.com",
-    "connect-src 'self'",
+    "connect-src 'self' https://*.supabase.co",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
