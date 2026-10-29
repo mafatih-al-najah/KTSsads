@@ -131,8 +131,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-[6deg]"
                   onError={(e) => {
                     const el = e.currentTarget;
-                    if (el.dataset.fallback === "done") return;
-                    el.dataset.fallback = "done";
+                    if (el.dataset["fallback"] === "done") return;
+                    el.dataset["fallback"] = "done";
                     el.src = "/favicon.png";
                   }}
                 />
