@@ -102,7 +102,7 @@ export const pdfFiles = {
 // اترك الحقل فارغاً "" حتى يتوفر الكتاب، وسيظهر زر التحميل تلقائياً عند إضافة الرابط.
 // ملاحظة: كتاب الإسلامية متوفر محلياً في مجلد public.
 export const arabicBooks: { label: string; url: string }[] = [
-  { label: "كتاب الإسلامية 2026", url: "/كتاب_الاسلامية_السادس_الاعدادي.pdf" },
+  { label: "كتاب الإسلامية 2026", url: "https://drive.google.com/file/d/1sSfkJBYy3hjBD0-nNr5TxvP_EgrZW_kI/view?usp=sharing" },
   { label: "كتاب العربي 2026", url: "" },
   { label: "كتاب الإنكليزي 2026", url: "" },
   { label: "كتاب الفيزياء 2026", url: "" },
