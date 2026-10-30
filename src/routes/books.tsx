@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { BookOpen, GraduationCap } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 
@@ -8,6 +8,8 @@ export const Route = createFileRoute("/books")({
 });
 
 function BooksPage() {
+  const { pathname } = useLocation();
+  if (pathname !== "/books") return <Outlet />;
   return (
     <>
       <PageHero title="الكتب" subtitle="اختر المنهج لعرض الكتب المتوفرة" />

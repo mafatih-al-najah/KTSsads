@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { BookOpen, NotebookPen, Sparkles } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 
@@ -8,6 +8,8 @@ export const Route = createFileRoute("/notes")({
 });
 
 function NotesPage() {
+  const { pathname } = useLocation();
+  if (pathname !== "/notes") return <Outlet />;
   return (
     <>
       <PageHero title="الملازم" subtitle="اختر القسم لعرض المحتوى" />
