@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   BookOpen,
-  ChevronLeft,
+  Download,
   FileText,
   Search,
   Sparkles,
@@ -56,7 +56,10 @@ function BookCard({
           </p>
         </div>
       </div>
-      <ChevronLeft className="h-6 w-6 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-x-1 group-hover:text-primary" />
+      <span className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-glow">
+        <Download className="h-4 w-4" />
+        <span className="hidden sm:inline">تحميل</span>
+      </span>
     </Link>
   );
 }
