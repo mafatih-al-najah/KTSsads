@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   BookOpen,
+  ChevronLeft,
   Download,
   FileText,
   Search,
@@ -17,7 +18,15 @@ export const Route = createFileRoute("/books/arabic")({
   component: ArabicBooksPage,
 });
 
-function BookCard({ label, url, index }: { label: string; url: string; index: number }) {
+function BookCard({
+  label,
+  url,
+  index,
+}: {
+  label: string;
+  url: string;
+  index: number;
+}) {
   const hasFile = url.trim().length > 0;
   return (
     <div
@@ -25,7 +34,11 @@ function BookCard({ label, url, index }: { label: string; url: string; index: nu
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80" />
-      <div className="flex min-w-0 items-center gap-4">
+      <Link
+        to="/books/arabic/$index"
+        params={{ index: String(index) }}
+        className="flex min-w-0 flex-1 items-center gap-4"
+      >
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
           <BookOpen className="h-6 w-6" />
         </span>
@@ -35,7 +48,7 @@ function BookCard({ label, url, index }: { label: string; url: string; index: nu
             {hasFile ? (
               <>
                 <FileText className="h-3.5 w-3.5 text-emerald-500" />
-                <span>متوفر للتحميل</span>
+                <span>متوفر للتصفح والتحميل</span>
               </>
             ) : (
               <>
@@ -45,22 +58,33 @@ function BookCard({ label, url, index }: { label: string; url: string; index: nu
             )}
           </p>
         </div>
-      </div>
-      {hasFile ? (
-        <a
-          href={url}
-          download
-          className="btn-lime shrink-0 text-xs sm:text-sm"
-          aria-label={`تحميل ${label}`}
+      </Link>
+      <div className="flex shrink-0 items-center gap-2">
+        <Link
+          to="/books/arabic/$index"
+          params={{ index: String(index) }}
+          className="btn-brand text-xs sm:text-sm"
+          aria-label={`فتح ${label}`}
         >
-          <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">تحميل</span>
-        </a>
-      ) : (
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-dashed border-muted-foreground/30 text-muted-foreground/40">
-          <Download className="h-4 w-4" />
-        </span>
-      )}
+          <ChevronLeft className="h-4 w-4" />
+          <span className="hidden sm:inline">فتح</span>
+        </Link>
+        {hasFile ? (
+          <a
+            href={url}
+            download
+            className="btn-lime text-xs sm:text-sm"
+            aria-label={`تحميل ${label}`}
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">تحميل</span>
+          </a>
+        ) : (
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-dashed border-muted-foreground/30 text-muted-foreground/40">
+            <Download className="h-4 w-4" />
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -76,7 +100,7 @@ function ArabicBooksPage() {
     <>
       <PageHero
         title="كتب المنهج العربي"
-        subtitle="كتب المناهج العربية لجميع مواد السادس الإعدادي — اضغط زر التحميل بجانب كل كتاب لتنزيله"
+        subtitle="كتب المناهج العربية لجميع مواد السادس الإعدادي — اضغط لتصفح الكتاب داخل الموقع أو حمّله مباشرة"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
         <div className="relative mb-8">
@@ -102,7 +126,12 @@ function ArabicBooksPage() {
         {filtered.length > 0 ? (
           <div className="grid gap-4 sm:gap-5">
             {filtered.map((book, i) => (
-              <BookCard key={book.label} label={book.label} url={book.url} index={i} />
+              <BookCard
+                key={book.label}
+                label={book.label}
+                url={book.url}
+                index={i}
+              />
             ))}
           </div>
         ) : (

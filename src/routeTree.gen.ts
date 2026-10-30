@@ -24,6 +24,7 @@ import { Route as BooksArabicRouteImport } from './routes/books/arabic'
 import { Route as BooksExcellenceRouteImport } from './routes/books/excellence'
 import { Route as NotesIndicatedRouteImport } from './routes/notes/indicated'
 import { Route as NotesTeachersRouteImport } from './routes/notes/teachers'
+import { Route as BooksArabicIndexRouteImport } from './routes/books/arabic/$index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -100,6 +101,11 @@ const NotesTeachersRoute = NotesTeachersRouteImport.update({
   path: '/teachers',
   getParentRoute: () => NotesRoute,
 } as any)
+const BooksArabicIndexRoute = BooksArabicIndexRouteImport.update({
+  id: '/$index',
+  path: '/$index',
+  getParentRoute: () => BooksArabicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -113,10 +119,11 @@ export interface FileRoutesByFullPath {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
-  '/books/arabic': typeof BooksArabicRoute
+  '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
+  '/books/arabic/$index': typeof BooksArabicIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -130,10 +137,11 @@ export interface FileRoutesByTo {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
-  '/books/arabic': typeof BooksArabicRoute
+  '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
+  '/books/arabic/$index': typeof BooksArabicIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -148,10 +156,11 @@ export interface FileRoutesById {
   '/minimums': typeof MinimumsRoute
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
-  '/books/arabic': typeof BooksArabicRoute
+  '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
+  '/books/arabic/$index': typeof BooksArabicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
+    | '/books/arabic/$index'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
+    | '/books/arabic/$index'
   id:
     | '__root__'
     | '/'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
+    | '/books/arabic/$index'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -328,16 +340,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesTeachersRouteImport
       parentRoute: typeof NotesRoute
     }
+    '/books/arabic/$index': {
+      id: '/books/arabic/$index'
+      path: '/$index'
+      fullPath: '/books/arabic/$index'
+      preLoaderRoute: typeof BooksArabicIndexRouteImport
+      parentRoute: typeof BooksArabicRoute
+    }
   }
 }
 
+interface BooksArabicRouteChildren {
+  BooksArabicIndexRoute: typeof BooksArabicIndexRoute
+}
+
+const BooksArabicRouteChildren: BooksArabicRouteChildren = {
+  BooksArabicIndexRoute: BooksArabicIndexRoute,
+}
+
+const BooksArabicRouteWithChildren = BooksArabicRoute._addFileChildren(
+  BooksArabicRouteChildren,
+)
+
 interface BooksRouteChildren {
-  BooksArabicRoute: typeof BooksArabicRoute
+  BooksArabicRoute: typeof BooksArabicRouteWithChildren
   BooksExcellenceRoute: typeof BooksExcellenceRoute
 }
 
 const BooksRouteChildren: BooksRouteChildren = {
-  BooksArabicRoute: BooksArabicRoute,
+  BooksArabicRoute: BooksArabicRouteWithChildren,
   BooksExcellenceRoute: BooksExcellenceRoute,
 }
 
