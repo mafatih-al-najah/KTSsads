@@ -3,7 +3,6 @@ import { useMemo, useState } from "react";
 import {
   BookOpen,
   ChevronLeft,
-  Download,
   FileText,
   Search,
   Sparkles,
@@ -29,16 +28,14 @@ function BookCard({
 }) {
   const hasFile = url.trim().length > 0;
   return (
-    <div
+    <Link
+      to="/books/arabic/$index"
+      params={{ index: String(index) }}
       className="card-lift group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-5 sm:p-6"
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80" />
-      <Link
-        to="/books/arabic/$index"
-        params={{ index: String(index) }}
-        className="flex min-w-0 flex-1 items-center gap-4"
-      >
+      <div className="flex min-w-0 flex-1 items-center gap-4">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
           <BookOpen className="h-6 w-6" />
         </span>
@@ -58,34 +55,9 @@ function BookCard({
             )}
           </p>
         </div>
-      </Link>
-      <div className="flex shrink-0 items-center gap-2">
-        <Link
-          to="/books/arabic/$index"
-          params={{ index: String(index) }}
-          className="btn-brand text-xs sm:text-sm"
-          aria-label={`فتح ${label}`}
-        >
-          <ChevronLeft className="h-4 w-4" />
-          <span className="hidden sm:inline">فتح</span>
-        </Link>
-        {hasFile ? (
-          <a
-            href={url}
-            download
-            className="btn-lime text-xs sm:text-sm"
-            aria-label={`تحميل ${label}`}
-          >
-            <Download className="h-4 w-4" />
-            <span className="hidden sm:inline">تحميل</span>
-          </a>
-        ) : (
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-dashed border-muted-foreground/30 text-muted-foreground/40">
-            <Download className="h-4 w-4" />
-          </span>
-        )}
       </div>
-    </div>
+      <ChevronLeft className="h-6 w-6 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-x-1 group-hover:text-primary" />
+    </Link>
   );
 }
 
@@ -100,7 +72,7 @@ function ArabicBooksPage() {
     <>
       <PageHero
         title="كتب المنهج العربي"
-        subtitle="كتب المناهج العربية لجميع مواد السادس الإعدادي — اضغط لتصفح الكتاب داخل الموقع أو حمّله مباشرة"
+        subtitle="كتب المناهج العربية لجميع مواد السادس الإعدادي — اضغط على الكتاب للتصفح والتحميل"
       />
       <div className="mx-auto max-w-4xl px-4 py-12">
         <div className="relative mb-8">

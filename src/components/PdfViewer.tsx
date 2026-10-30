@@ -1,14 +1,36 @@
-import { Download, ExternalLink, FileText } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 
 function embedUrl(url: string) {
   const drive = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/);
   return drive ? `https://drive.google.com/file/d/${drive[1]}/preview` : url;
 }
 
-export function PdfViewer({ url, title }: { url: string; title: string }) {
-  if (!url.trim()) return <p className="border-y py-16 text-center text-muted-foreground">سيتم نشر الملف قريباً</p>;
+function directDownload(url: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.rel = "noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+export function PdfViewer({
+  url,
+  title,
+}: {
+  url: string;
+  title: string;
+}) {
+  if (!url.trim())
+    return (
+      <p className="border-y py-16 text-center text-muted-foreground">
+        سيتم نشر الملف قريباً
+      </p>
+    );
   const sourceUrl = url.trim();
   const src = embedUrl(sourceUrl);
+  const filename = title.endsWith(".pdf") ? title : `${title}.pdf`;
 
   return (
     <section className="overflow-hidden rounded-3xl border bg-card shadow-glow">
@@ -19,22 +41,26 @@ export function PdfViewer({ url, title }: { url: string; title: string }) {
           </span>
           <div>
             <h2 className="font-bold">{title}</h2>
-            <p className="text-sm text-muted-foreground">تصفّح الصفحات هنا دون مغادرة الموقع</p>
+            <p className="text-sm text-muted-foreground">
+              تصفّح الصفحات هنا دون مغادرة الموقع
+            </p>
           </div>
         </div>
-        <a href={sourceUrl} download className="btn-lime text-sm">
+        <button
+          onClick={() => directDownload(sourceUrl, filename)}
+          className="btn-lime text-sm"
+        >
           <Download className="h-4 w-4" />
           تحميل الملف
-        </a>
+        </button>
       </div>
       <div className="bg-muted/30 p-2 md:p-4">
-        <iframe src={src} title={title} className="h-[80vh] min-h-[560px] w-full rounded-2xl border bg-background" allow="autoplay" />
-      </div>
-      <div className="border-t px-5 py-4 text-center md:px-7">
-        <a href={sourceUrl} target="_blank" rel="noreferrer" className="btn-brand text-sm">
-          <ExternalLink className="h-4 w-4" />
-          فتح الملف بشاشة كاملة
-        </a>
+        <iframe
+          src={src}
+          title={title}
+          className="h-[80vh] min-h-[560px] w-full rounded-2xl border bg-background"
+          allow="autoplay"
+        />
       </div>
     </section>
   );
