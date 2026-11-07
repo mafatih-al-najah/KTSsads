@@ -1,48 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, ArrowRight, BookOpen, Loader2 } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 import { PdfViewer } from "@/components/PdfViewer";
-import { arabicBooksQueryKey, fetchArabicBooks } from "@/lib/books";
+import { arabicBooks } from "@/data/site";
 
-export const Route = createFileRoute("/books/arabic/$bookId")({
+export const Route = createFileRoute("/books/arabic/$index")({
   head: () => meta("كتاب", "عرض وتحميل الكتاب داخل الموقع."),
   component: BookDetailPage,
 });
 
 function BookDetailPage() {
-  const { bookId } = Route.useParams();
-  const {
-    data: books,
-    isPending,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: arabicBooksQueryKey,
-    queryFn: fetchArabicBooks,
-  });
-
-  if (isPending) {
-    return (
-      <div className="flex justify-center py-32 text-muted-foreground">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="flex flex-col items-center gap-4 py-32 text-center">
-        <AlertTriangle className="h-8 w-8 text-destructive" />
-        <p className="text-muted-foreground">تعذّر تحميل الكتاب</p>
-        <button onClick={() => void refetch()} className="btn-brand text-sm">
-          إعادة المحاولة
-        </button>
-      </div>
-    );
-  }
-
-  const book = books.find((b) => b.id === bookId);
+  const { index } = Route.useParams();
+  const idx = Number(index);
+  const book = arabicBooks[idx];
 
   if (!book) {
     return (
@@ -61,7 +31,7 @@ function BookDetailPage() {
 
   return (
     <>
-      <PageHero title={book.title} subtitle="تصفّح الكتاب داخل الموقع أو حمّله مباشرة" />
+      <PageHero title={book.label} subtitle="تصفّح الكتاب داخل الموقع أو حمّله مباشرة" />
       <div className="mx-auto max-w-5xl px-4 py-10">
         <Link
           to="/books/arabic"
@@ -74,9 +44,9 @@ function BookDetailPage() {
           <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
             <BookOpen className="h-5 w-5" />
           </span>
-          <h2 className="text-lg font-bold">{book.title}</h2>
+          <h2 className="text-lg font-bold">{book.label}</h2>
         </div>
-        <PdfViewer url={book.file_url ?? ""} title={book.title} />
+        <PdfViewer url={book.url} title={book.label} />
       </div>
     </>
   );

@@ -8,30 +8,6 @@ export type Database = {
   };
   public: {
     Tables: {
-      books: {
-        Row: {
-          created_at: string;
-          file_url: string | null;
-          id: string;
-          sort_order: number;
-          title: string;
-        };
-        Insert: {
-          created_at?: string;
-          file_url?: string | null;
-          id?: string;
-          sort_order?: number;
-          title: string;
-        };
-        Update: {
-          created_at?: string;
-          file_url?: string | null;
-          id?: string;
-          sort_order?: number;
-          title?: string;
-        };
-        Relationships: [];
-      };
       site_announcements: {
         Row: {
           cta_label: string | null;
