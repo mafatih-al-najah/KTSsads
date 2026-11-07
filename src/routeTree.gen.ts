@@ -24,7 +24,7 @@ import { Route as BooksArabicRouteImport } from './routes/books/arabic'
 import { Route as BooksExcellenceRouteImport } from './routes/books/excellence'
 import { Route as NotesIndicatedRouteImport } from './routes/notes/indicated'
 import { Route as NotesTeachersRouteImport } from './routes/notes/teachers'
-import { Route as BooksArabicIndexRouteImport } from './routes/books/arabic/$index'
+import { Route as BooksArabicBookIdRouteImport } from './routes/books/arabic/$bookId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -101,9 +101,9 @@ const NotesTeachersRoute = NotesTeachersRouteImport.update({
   path: '/teachers',
   getParentRoute: () => NotesRoute,
 } as any)
-const BooksArabicIndexRoute = BooksArabicIndexRouteImport.update({
-  id: '/$index',
-  path: '/$index',
+const BooksArabicBookIdRoute = BooksArabicBookIdRouteImport.update({
+  id: '/$bookId',
+  path: '/$bookId',
   getParentRoute: () => BooksArabicRoute,
 } as any)
 
@@ -123,7 +123,7 @@ export interface FileRoutesByFullPath {
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
-  '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/books/arabic/$bookId': typeof BooksArabicBookIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -141,7 +141,7 @@ export interface FileRoutesByTo {
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
-  '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/books/arabic/$bookId': typeof BooksArabicBookIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -160,7 +160,7 @@ export interface FileRoutesById {
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
   '/notes/teachers': typeof NotesTeachersRoute
-  '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/books/arabic/$bookId': typeof BooksArabicBookIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -180,7 +180,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
-    | '/books/arabic/$index'
+    | '/books/arabic/$bookId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -198,7 +198,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
-    | '/books/arabic/$index'
+    | '/books/arabic/$bookId'
   id:
     | '__root__'
     | '/'
@@ -216,7 +216,7 @@ export interface FileRouteTypes {
     | '/books/excellence'
     | '/notes/indicated'
     | '/notes/teachers'
-    | '/books/arabic/$index'
+    | '/books/arabic/$bookId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -340,22 +340,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesTeachersRouteImport
       parentRoute: typeof NotesRoute
     }
-    '/books/arabic/$index': {
-      id: '/books/arabic/$index'
-      path: '/$index'
-      fullPath: '/books/arabic/$index'
-      preLoaderRoute: typeof BooksArabicIndexRouteImport
+    '/books/arabic/$bookId': {
+      id: '/books/arabic/$bookId'
+      path: '/$bookId'
+      fullPath: '/books/arabic/$bookId'
+      preLoaderRoute: typeof BooksArabicBookIdRouteImport
       parentRoute: typeof BooksArabicRoute
     }
   }
 }
 
 interface BooksArabicRouteChildren {
-  BooksArabicIndexRoute: typeof BooksArabicIndexRoute
+  BooksArabicBookIdRoute: typeof BooksArabicBookIdRoute
 }
 
 const BooksArabicRouteChildren: BooksArabicRouteChildren = {
-  BooksArabicIndexRoute: BooksArabicIndexRoute,
+  BooksArabicBookIdRoute: BooksArabicBookIdRoute,
 }
 
 const BooksArabicRouteWithChildren = BooksArabicRoute._addFileChildren(
