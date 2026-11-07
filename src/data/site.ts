@@ -1,4 +1,5 @@
 // ✏️ هذا الملف يحتوي على كل محتوى الموقع — عدّل الروابط والأسماء هنا فقط.
+import type { StudyResource } from "@/lib/download-options";
 
 export const site = {
   name: "مفاتيح النجاح",
@@ -128,13 +129,16 @@ export const pdfFiles = {
 // الطريقة: ارفع الملف على Google Drive ← مشاركة ← "أي شخص لديه الرابط" ← انسخ الرابط والصقه هنا.
 // الكتاب الذي له جزء واحد يكفيه عنصر واحد في parts. الكتاب الذي له أجزاء متعددة يعرض زر لكل جزء.
 // اترك القائمة parts فارغة [] حتى يتوفر الكتاب.
-export const arabicBooks: { label: string; parts: { label: string; url: string }[] }[] = [
+// لكل جزء: url = رابط Google Drive للعرض والتحميل، telegramUrl = رابط قناة أو منشور تليكرام.
+// اترك الرابط "" إن لم يتوفر؛ يظهر الخيار غير متوفر بدلاً من فتح رابط غير صحيح.
+export const arabicBooks: StudyResource[] = [
   {
     label: "كتاب الإسلامية 2026",
     parts: [
       {
         label: "الكتاب كاملاً",
         url: "https://drive.google.com/file/d/1sSfkJBYy3hjBD0-nNr5TxvP_EgrZW_kI/view?usp=sharing",
+        telegramUrl: "",
       },
     ],
   },
@@ -144,10 +148,12 @@ export const arabicBooks: { label: string; parts: { label: string; url: string }
       {
         label: "الجزء الأول",
         url: "https://drive.google.com/file/d/1gnacaVOCO7CqgJH74j7monJij_LFewmD/view?usp=sharing",
+        telegramUrl: "",
       },
       {
         label: "الجزء الثاني",
         url: "https://drive.google.com/file/d/1TztHvEUgty3NS5yJ-SiGLQffsxyQCS2r/view?usp=sharing",
+        telegramUrl: "",
       },
     ],
   },
@@ -158,6 +164,14 @@ export const arabicBooks: { label: string; parts: { label: string; url: string }
   { label: "كتاب الرياضيات 2026", parts: [] },
   { label: "كتاب الفرنسي 2026 (للمتوفقين)", parts: [] },
 ];
+
+// 📚 كتب المتميزين والكتب المؤشرة وملازم المدرسين: أضف العناصر بنفس النموذج.
+// انسخ المثال إلى القائمة المطلوبة واحذف // من بدايته، ثم غيّر الاسم والروابط.
+// { label: "اسم الكتاب أو الملزمة", parts: [{ label: "الكتاب كاملاً", url: "", telegramUrl: "" }] },
+// للكتاب ذي الجزأين، أضف عنصرين داخل parts: "الجزء الأول" و"الجزء الثاني"، لكل منهما روابطه.
+export const excellenceBooks: StudyResource[] = [];
+export const indicatedBooks: StudyResource[] = [];
+export const teacherNotes: StudyResource[] = [];
 
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
 export const teacherAds: {

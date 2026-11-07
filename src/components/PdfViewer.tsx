@@ -1,11 +1,12 @@
 import { Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { pdfLinks } from "@/lib/pdf-links";
+import { DownloadChoices } from "@/components/DownloadChoices";
 
-export function PdfViewer({ url, title }: { url: string; title: string }) {
+export function PdfViewer({ url, title, telegramUrl }: { url: string; title: string; telegramUrl?: string }) {
   if (!url.trim())
     return (
-      <p className="border-y py-16 text-center text-muted-foreground">سيتم نشر الملف قريباً</p>
+      <div className="border-y py-16 text-center"><p className="mb-4 text-muted-foreground">سيتم نشر الملف قريباً</p>{telegramUrl !== undefined && <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} />}</div>
     );
   const sourceUrl = url.trim();
   const links = pdfLinks(sourceUrl);
@@ -23,12 +24,12 @@ export function PdfViewer({ url, title }: { url: string; title: string }) {
             <p className="text-sm text-muted-foreground">تصفّح الصفحات هنا دون مغادرة الموقع</p>
           </div>
         </div>
-        <Button asChild className="btn-lime text-sm">
+        {telegramUrl !== undefined ? <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} className="btn-lime text-sm" /> : <Button asChild className="btn-lime text-sm">
           <a href={links.download} download={links.isDrive ? undefined : filename} target={links.isDrive ? "_blank" : undefined} rel="noopener noreferrer">
             <Download className="h-4 w-4" />
             تحميل الملف
           </a>
-        </Button>
+        </Button>}
       </div>
       <div className="bg-muted/30 p-2 md:p-4">
         <iframe

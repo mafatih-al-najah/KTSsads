@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 
 const secureLink = z
   .string()
@@ -18,15 +17,7 @@ export const announcementSchema = z.object({
 export type Announcement = z.infer<typeof announcementSchema>;
 
 export async function fetchActiveAnnouncement(): Promise<Announcement | null> {
-  const { data, error } = await supabase
-    .from("site_announcements")
-    .select("id, message, icon, image_url, cta_label, cta_url")
-    .eq("is_active", true)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (error) throw new Error("Could not load the announcement");
-  if (!data) return null;
-  return announcementSchema.parse(data);
+  // The owner-login announcement table is not part of the current schema.
+  // Do not query a removed table; teacher advertisements remain in site.ts.
+  return null;
 }

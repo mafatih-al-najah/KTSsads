@@ -3,3 +3,4 @@
 - [x] Reduce the footer to a compact contact strip; keep the theme picker accessible.
 - [x] Verify back/forward, login views, public listings, Telegram URL rules, footer and mobile layout.
 - [x] Simplify book listings; verify search, Arabic parts, preview/download URL wiring and mobile layout (Drive file rendering/download completion not verified).
+- [x] Add Telegram-first / Google Drive-second downloads to all books and notes, editable links, and verify the student flow (external file completion unverified; Telegram links await owner input).

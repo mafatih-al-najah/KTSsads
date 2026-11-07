@@ -1,6 +1,8 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { BookOpen, Download, Search, Sparkles, X } from "lucide-react";
+import { BookOpen, Search, Sparkles, X } from "lucide-react";
+import { DownloadChoices } from "@/components/DownloadChoices";
+import type { StudyResource } from "@/lib/download-options";
 import { Button } from "@/components/ui/button";
 import { meta, PageHero } from "@/components/SiteShell";
 import { arabicBooks } from "@/data/site";
@@ -10,21 +12,20 @@ export const Route = createFileRoute("/books/arabic")({
   component: ArabicBooksPage,
 });
 
-function BookCard({ label, hasFile, index }: { label: string; hasFile: boolean; index: number }) {
+function BookCard({ book, index }: { book: StudyResource; index: number }) {
+  const hasFile = book.parts.some((part) => part.url.trim() || part.telegramUrl?.trim());
   return (
-    <Link
-      to="/books/arabic/$index"
-      params={{ index: String(index) }}
+    <div
       className="card-lift group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-5 sm:p-6"
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80" />
-      <div className="flex min-w-0 flex-1 items-center gap-4">
+      <Link to="/books/arabic/$index" params={{ index: String(index) }} className="flex min-w-0 flex-1 items-center gap-4">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
           <BookOpen className="h-6 w-6" />
         </span>
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-bold leading-tight">{label}</h3>
+          <h3 className="text-lg font-bold leading-tight">{book.label}</h3>
           {!hasFile && (
             <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Sparkles className="h-3.5 w-3.5" />
@@ -32,12 +33,9 @@ function BookCard({ label, hasFile, index }: { label: string; hasFile: boolean; 
             </p>
           )}
         </div>
-      </div>
-      <span className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-glow">
-        <Download className="h-4 w-4" />
-        <span className="hidden sm:inline">تحميل</span>
-      </span>
-    </Link>
+      </Link>
+      <DownloadChoices title={book.label} parts={book.parts} className="shrink-0" />
+    </div>
   );
 }
 
@@ -84,8 +82,7 @@ function ArabicBooksPage() {
             {filtered.map((book) => (
               <BookCard
                 key={book.label}
-                label={book.label}
-                hasFile={book.parts.some((part) => part.url.trim().length > 0)}
+                book={book}
                 index={arabicBooks.indexOf(book)}
               />
             ))}

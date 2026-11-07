@@ -71,6 +71,7 @@ function BookDetailPage() {
         )}
         <PdfViewer
           url={book.parts[selectedPart]?.url ?? ""}
+          telegramUrl={book.parts[selectedPart]?.telegramUrl ?? ""}
           title={
             book.parts.length > 1
               ? `${book.label} - ${book.parts[selectedPart]?.label ?? ""}`
