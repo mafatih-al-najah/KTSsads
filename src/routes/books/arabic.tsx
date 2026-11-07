@@ -9,8 +9,7 @@ export const Route = createFileRoute("/books/arabic")({
   component: ArabicBooksPage,
 });
 
-function BookCard({ label, url, index }: { label: string; url: string; index: number }) {
-  const hasFile = url.trim().length > 0;
+function BookCard({ label, hasFile, index }: { label: string; hasFile: boolean; index: number }) {
   return (
     <Link
       to="/books/arabic/$index"
@@ -85,7 +84,12 @@ function ArabicBooksPage() {
         {filtered.length > 0 ? (
           <div className="grid gap-4 sm:gap-5">
             {filtered.map((book, i) => (
-              <BookCard key={book.label} label={book.label} url={book.url} index={i} />
+              <BookCard
+                key={book.label}
+                label={book.label}
+                hasFile={book.parts.some((part) => part.url.trim().length > 0)}
+                index={i}
+              />
             ))}
           </div>
         ) : (

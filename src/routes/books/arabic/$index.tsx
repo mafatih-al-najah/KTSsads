@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 import { PdfViewer } from "@/components/PdfViewer";
@@ -11,8 +12,8 @@ export const Route = createFileRoute("/books/arabic/$index")({
 
 function BookDetailPage() {
   const { index } = Route.useParams();
-  const idx = Number(index);
-  const book = arabicBooks[idx];
+  const book = arabicBooks[Number(index)];
+  const [selectedPart, setSelectedPart] = useState(0);
 
   if (!book) {
     return (
@@ -46,7 +47,34 @@ function BookDetailPage() {
           </span>
           <h2 className="text-lg font-bold">{book.label}</h2>
         </div>
-        <PdfViewer url={book.url} title={book.label} />
+        {book.parts.length > 1 && (
+          <div role="tablist" aria-label="أجزاء الكتاب" className="mb-6 flex flex-wrap gap-3">
+            {book.parts.map((part, i) => (
+              <button
+                key={part.label}
+                type="button"
+                role="tab"
+                aria-selected={i === selectedPart}
+                onClick={() => setSelectedPart(i)}
+                className={
+                  i === selectedPart
+                    ? "rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow transition"
+                    : "rounded-full border bg-card px-5 py-2.5 text-sm font-bold text-foreground transition hover:border-primary hover:text-primary"
+                }
+              >
+                {part.label}
+              </button>
+            ))}
+          </div>
+        )}
+        <PdfViewer
+          url={book.parts[selectedPart]?.url ?? ""}
+          title={
+            book.parts.length > 1
+              ? `${book.label} - ${book.parts[selectedPart]?.label ?? ""}`
+              : book.label
+          }
+        />
       </div>
     </>
   );

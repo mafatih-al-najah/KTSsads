@@ -124,21 +124,39 @@ export const pdfFiles = {
   minimums: "/الحدود الدنيا للقبول المركزي دفعة 2026 (متميزين).pdf",
 };
 
-// 📚 كتب المنهج العربي: الصق رابط Google Drive بين علامتي التنصيص بجانب كل مادة.
+// 📚 كتب المنهج العربي: الصق رابط Google Drive بين علامتي التنصيص لكل جزء من الكتاب.
 // الطريقة: ارفع الملف على Google Drive ← مشاركة ← "أي شخص لديه الرابط" ← انسخ الرابط والصقه هنا.
-// اترك الحقل فارغاً "" حتى يتوفر الكتاب، وسيظهر زر التحميل تلقائياً عند إضافة الرابط.
-export const arabicBooks: { label: string; url: string }[] = [
+// الكتاب الذي له جزء واحد يكفيه عنصر واحد في parts. الكتاب الذي له أجزاء متعددة يعرض زر لكل جزء.
+// اترك القائمة parts فارغة [] حتى يتوفر الكتاب.
+export const arabicBooks: { label: string; parts: { label: string; url: string }[] }[] = [
   {
     label: "كتاب الإسلامية 2026",
-    url: "https://drive.google.com/file/d/1sSfkJBYy3hjBD0-nNr5TxvP_EgrZW_kI/view?usp=sharing",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1sSfkJBYy3hjBD0-nNr5TxvP_EgrZW_kI/view?usp=sharing",
+      },
+    ],
   },
-  { label: "كتاب العربي 2026", url: "" },
-  { label: "كتاب الإنكليزي 2026", url: "" },
-  { label: "كتاب الفيزياء 2026", url: "" },
-  { label: "كتاب الكيمياء 2026", url: "" },
-  { label: "كتاب الأحياء 2026", url: "" },
-  { label: "كتاب الرياضيات 2026", url: "" },
-  { label: "كتاب الفرنسي 2026 (للمتوفقين)", url: "" },
+  {
+    label: "كتاب اللغة العربية 2026",
+    parts: [
+      {
+        label: "الجزء الأول",
+        url: "https://drive.google.com/file/d/1gnacaVOCO7CqgJH74j7monJij_LFewmD/view?usp=sharing",
+      },
+      {
+        label: "الجزء الثاني",
+        url: "https://drive.google.com/file/d/1TztHvEUgty3NS5yJ-SiGLQffsxyQCS2r/view?usp=sharing",
+      },
+    ],
+  },
+  { label: "كتاب الإنكليزي 2026", parts: [] },
+  { label: "كتاب الفيزياء 2026", parts: [] },
+  { label: "كتاب الكيمياء 2026", parts: [] },
+  { label: "كتاب الأحياء 2026", parts: [] },
+  { label: "كتاب الرياضيات 2026", parts: [] },
+  { label: "كتاب الفرنسي 2026 (للمتوفقين)", parts: [] },
 ];
 
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
