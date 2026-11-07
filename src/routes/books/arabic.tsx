@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { BookOpen, Download, FileText, Search, Sparkles, X } from "lucide-react";
+import { BookOpen, Download, Search, Sparkles, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { meta, PageHero } from "@/components/SiteShell";
 import { arabicBooks } from "@/data/site";
 
@@ -24,19 +25,12 @@ function BookCard({ label, hasFile, index }: { label: string; hasFile: boolean; 
         </span>
         <div className="min-w-0">
           <h3 className="truncate text-lg font-bold leading-tight">{label}</h3>
-          <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-            {hasFile ? (
-              <>
-                <FileText className="h-3.5 w-3.5 text-emerald-500" />
-                <span>متوفر للتصفح والتحميل</span>
-              </>
-            ) : (
-              <>
+          {!hasFile && (
+            <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Sparkles className="h-3.5 w-3.5" />
                 <span>سيتم رفعه قريباً</span>
-              </>
-            )}
-          </p>
+            </p>
+          )}
         </div>
       </div>
       <span className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-glow">
@@ -48,12 +42,14 @@ function BookCard({ label, hasFile, index }: { label: string; hasFile: boolean; 
 }
 
 function ArabicBooksPage() {
+  const { pathname } = useLocation();
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return arabicBooks;
     return arabicBooks.filter((b) => b.label.toLowerCase().includes(q));
   }, [query]);
+  if (pathname !== "/books/arabic" && pathname !== "/books/arabic/") return <Outlet />;
   return (
     <>
       <PageHero
@@ -72,32 +68,31 @@ function ArabicBooksPage() {
             className="w-full rounded-2xl border bg-card py-3.5 pr-12 pl-12 text-base shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
           />
           {query && (
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setQuery("")}
               aria-label="مسح البحث"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
             >
               <X className="h-5 w-5" />
-            </button>
+            </Button>
           )}
         </div>
         {filtered.length > 0 ? (
           <div className="grid gap-4 sm:gap-5">
-            {filtered.map((book, i) => (
+            {filtered.map((book) => (
               <BookCard
                 key={book.label}
                 label={book.label}
                 hasFile={book.parts.some((part) => part.url.trim().length > 0)}
-                index={i}
+                index={arabicBooks.indexOf(book)}
               />
             ))}
           </div>
         ) : (
           <p className="py-16 text-center text-muted-foreground">لا توجد نتائج مطابقة لبحثك</p>
         )}
-        <p className="mt-10 text-center text-sm text-muted-foreground">
-          سيتم رفع بقية الكتب بالتدريج — تابعوا القناة لمعرفة الجديد
-        </p>
       </div>
     </>
   );

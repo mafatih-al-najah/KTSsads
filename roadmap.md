@@ -2,3 +2,4 @@
 - [x] Create owner-managed teacher advertisements with Telegram registration links.
 - [x] Reduce the footer to a compact contact strip; keep the theme picker accessible.
 - [x] Verify back/forward, login views, public listings, Telegram URL rules, footer and mobile layout.
+- [x] Simplify book listings; verify search, Arabic parts, preview/download URL wiring and mobile layout (Drive file rendering/download completion not verified).

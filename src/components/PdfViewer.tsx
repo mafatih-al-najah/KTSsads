@@ -1,19 +1,6 @@
 import { Download, FileText } from "lucide-react";
-
-function embedUrl(url: string) {
-  const drive = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/);
-  return drive ? `https://drive.google.com/file/d/${drive[1]}/preview` : url;
-}
-
-function directDownload(url: string, filename: string) {
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.rel = "noreferrer";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
+import { Button } from "@/components/ui/button";
+import { pdfLinks } from "@/lib/pdf-links";
 
 export function PdfViewer({ url, title }: { url: string; title: string }) {
   if (!url.trim())
@@ -21,7 +8,7 @@ export function PdfViewer({ url, title }: { url: string; title: string }) {
       <p className="border-y py-16 text-center text-muted-foreground">سيتم نشر الملف قريباً</p>
     );
   const sourceUrl = url.trim();
-  const src = embedUrl(sourceUrl);
+  const links = pdfLinks(sourceUrl);
   const filename = title.endsWith(".pdf") ? title : `${title}.pdf`;
 
   return (
@@ -36,14 +23,16 @@ export function PdfViewer({ url, title }: { url: string; title: string }) {
             <p className="text-sm text-muted-foreground">تصفّح الصفحات هنا دون مغادرة الموقع</p>
           </div>
         </div>
-        <button onClick={() => directDownload(sourceUrl, filename)} className="btn-lime text-sm">
-          <Download className="h-4 w-4" />
-          تحميل الملف
-        </button>
+        <Button asChild className="btn-lime text-sm">
+          <a href={links.download} download={links.isDrive ? undefined : filename} target={links.isDrive ? "_blank" : undefined} rel="noopener noreferrer">
+            <Download className="h-4 w-4" />
+            تحميل الملف
+          </a>
+        </Button>
       </div>
       <div className="bg-muted/30 p-2 md:p-4">
         <iframe
-          src={src}
+          src={links.preview}
           title={title}
           className="h-[80vh] min-h-[560px] w-full rounded-2xl border bg-background"
           allow="autoplay"

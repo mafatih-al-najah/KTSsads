@@ -4,16 +4,18 @@ import { ArrowRight, BookOpen } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 import { PdfViewer } from "@/components/PdfViewer";
 import { arabicBooks } from "@/data/site";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/books/arabic/$index")({
-  head: () => meta("كتاب", "عرض وتحميل الكتاب داخل الموقع."),
+  head: ({ params }) => meta(arabicBooks[Number(params.index)]?.label ?? "الكتاب غير موجود", "عرض وتحميل كتب المنهج العربي داخل موقع مفاتيح النجاح."),
   component: BookDetailPage,
 });
 
 function BookDetailPage() {
   const { index } = Route.useParams();
   const book = arabicBooks[Number(index)];
-  const [selectedPart, setSelectedPart] = useState(0);
+  const [selection, setSelection] = useState({ index, part: 0 });
+  const selectedPart = selection.index === index ? selection.part : 0;
 
   if (!book) {
     return (
@@ -50,12 +52,12 @@ function BookDetailPage() {
         {book.parts.length > 1 && (
           <div role="tablist" aria-label="أجزاء الكتاب" className="mb-6 flex flex-wrap gap-3">
             {book.parts.map((part, i) => (
-              <button
+               <Button
                 key={part.label}
                 type="button"
                 role="tab"
                 aria-selected={i === selectedPart}
-                onClick={() => setSelectedPart(i)}
+                 onClick={() => setSelection({ index, part: i })}
                 className={
                   i === selectedPart
                     ? "rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow transition"
@@ -63,7 +65,7 @@ function BookDetailPage() {
                 }
               >
                 {part.label}
-              </button>
+               </Button>
             ))}
           </div>
         )}
