@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { BookOpen, Search, Sparkles, X } from "lucide-react";
+import { BookOpen, Search, X } from "lucide-react";
 import { DownloadChoices } from "@/components/DownloadChoices";
 import type { StudyResource } from "@/lib/download-options";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,6 @@ export const Route = createFileRoute("/books/arabic")({
 });
 
 function BookCard({ book, index }: { book: StudyResource; index: number }) {
-  const hasFile = book.parts.some((part) => part.url.trim() || part.telegramUrl?.trim());
   return (
     <div
       className="card-lift group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-5 sm:p-6"
@@ -26,12 +25,6 @@ function BookCard({ book, index }: { book: StudyResource; index: number }) {
         </span>
         <div className="min-w-0">
           <h3 className="text-lg font-bold leading-tight">{book.label}</h3>
-          {!hasFile && (
-            <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>سيتم رفعه قريباً</span>
-            </p>
-          )}
         </div>
       </Link>
       <DownloadChoices title={book.label} parts={book.parts} className="shrink-0" />

@@ -6,7 +6,7 @@ import { DownloadChoices } from "@/components/DownloadChoices";
 export function PdfViewer({ url, title, telegramUrl }: { url: string; title: string; telegramUrl?: string }) {
   if (!url.trim())
     return (
-      <div className="border-y py-16 text-center"><p className="mb-4 text-muted-foreground">سيتم نشر الملف قريباً</p>{telegramUrl !== undefined && <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} />}</div>
+      <div className="border-y py-16 text-center"><p className="mb-4 text-muted-foreground">لا يوجد ملف للعرض</p>{telegramUrl !== undefined && <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} />}</div>
     );
   const sourceUrl = url.trim();
   const links = pdfLinks(sourceUrl);

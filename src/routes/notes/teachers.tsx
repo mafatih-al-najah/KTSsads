@@ -7,7 +7,7 @@ export const Route = createFileRoute("/notes/teachers")({
   head: () => meta("ملازم المدرسين", "ملازم يرفعها المدرسون لطلابهم."),
   component: () => (
     <>
-      <PageHero title="ملازم المدرسين" subtitle="سيتم نشر الملازم هنا قريباً" />
+      <PageHero title="ملازم المدرسين" />
       <ResourceLibrary resources={teacherNotes} emptyText="لا توجد ملازم مرفوعة حالياً. تابعوا القناة لإضافة جديدة." />
     </>
   ),
