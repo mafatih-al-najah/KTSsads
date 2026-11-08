@@ -143,21 +143,34 @@
 @utility card-lift {
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
   &:hover { transform: translateY(-4px); box-shadow: var(--shadow-glow); border-color: var(--violet); }
+  &:active { transform: translateY(-1px) scale(.98); transition-duration: .12s; }
 }
 @utility btn-brand {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  position: relative; overflow: hidden;
   padding: .7rem 1.4rem; border-radius: 999px; font-weight: 700;
   background-image: linear-gradient(135deg, var(--violet), color-mix(in oklab, var(--violet) 60%, var(--teal)));
   color: var(--primary-foreground);
   transition: transform .2s, box-shadow .2s;
   &:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+  &:active { transform: scale(.96); box-shadow: none; transition-duration: .08s; }
+  &::after { content: ""; position: absolute; left: 50%; top: 50%; width: 120%; aspect-ratio: 1; border-radius: 999px; background: color-mix(in oklab, white 35%, transparent); transform: translate(-50%, -50%) scale(0); pointer-events: none; }
+  &:active::after { animation: ripple .6s ease-out; }
 }
 @utility btn-lime {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  position: relative; overflow: hidden;
   padding: .7rem 1.4rem; border-radius: 999px; font-weight: 800;
   background: var(--lime); color: var(--teal);
   transition: transform .2s;
   &:hover { transform: translateY(-2px) scale(1.02); }
+  &:active { transform: scale(.96); transition-duration: .08s; }
+  &::after { content: ""; position: absolute; left: 50%; top: 50%; width: 120%; aspect-ratio: 1; border-radius: 999px; background: color-mix(in oklab, var(--teal) 18%, transparent); transform: translate(-50%, -50%) scale(0); pointer-events: none; }
+  &:active::after { animation: ripple .6s ease-out; }
+}
+@keyframes ripple {
+  from { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  to   { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 @utility hero-blob {
   position: absolute; border-radius: 999px; filter: blur(70px); opacity: .55;
@@ -228,4 +241,6 @@
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
   .rise, .spin-slow, .hero-blob { animation: none !important; }
+  .btn-brand::after, .btn-lime::after { display: none; }
+  .card-lift:active, .btn-brand:active, .btn-lime:active { transform: none; }
 }
