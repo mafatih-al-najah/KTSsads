@@ -180,3 +180,52 @@
   from { opacity: 0; transform: scale(.6) rotate(-8deg); }
   to   { opacity: 1; transform: scale(1) rotate(0); }
 }
+
+/* ====== لمسات التصميم الحديث ====== */
+@layer base {
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  body {
+    background-image:
+      radial-gradient(60rem 40rem at 100% -10%, color-mix(in oklab, var(--violet) 10%, transparent), transparent 60%),
+      radial-gradient(50rem 35rem at -10% 110%, color-mix(in oklab, var(--lime) 12%, transparent), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection { background: color-mix(in oklab, var(--violet) 30%, transparent); }
+}
+@utility glass {
+  background: color-mix(in oklab, var(--color-background) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+}
+@utility hero-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, white 9%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, white 9%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+@utility grain {
+  &::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .12; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+@utility card-glow {
+  position: relative; isolation: isolate;
+  &::before {
+    content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; padding: 1px;
+    background: linear-gradient(135deg, var(--violet), transparent 40%, transparent 60%, var(--lime));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .35s;
+  }
+  &:hover::before { opacity: 1; }
+}
+@utility rise {
+  animation: rise .7s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@utility spin-slow { animation: spin-slow 18s linear infinite; }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .rise, .spin-slow, .hero-blob { animation: none !important; }
+}

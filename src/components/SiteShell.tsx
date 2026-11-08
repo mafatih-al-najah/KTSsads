@@ -118,10 +118,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
     <div dir="rtl" className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <Link to="/" className="group flex items-center gap-3">
-            <span className="logo-ring relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full p-[2px] transition-transform duration-300 group-hover:scale-105">
+      <header className="glass sticky top-0 z-50 border-b border-border/60 shadow-[0_8px_30px_-20px_var(--color-primary)]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-4 sm:py-3">
+          <Link to="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3">
+            <span className="logo-ring relative grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full p-[2px] sm:h-12 sm:w-12 transition-transform duration-300 group-hover:scale-105">
               <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--color-primary,#033030),var(--color-accent,#AC0EFF),var(--color-secondary,#1f6fd0),var(--color-primary,#033030))] opacity-90" />
               <span className="relative grid h-full w-full place-items-center overflow-hidden rounded-full bg-card">
                 <img
@@ -138,29 +138,29 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 />
               </span>
             </span>
-            <span className="font-display text-xl font-extrabold">{site.name}</span>
+            <span className="truncate font-display text-lg font-extrabold sm:text-xl">{site.name}</span>
           </Link>
-          <nav className="hidden items-center gap-1 xl:flex">
+          <nav className="hidden items-center gap-0.5 rounded-full border border-border/60 bg-card/60 p-1 xl:flex">
             {nav.map((n) => (
-              <Link key={n.to} to={n.to} activeOptions={{ exact: true }} className="rounded-full px-2.5 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground" activeProps={{ className: "bg-secondary text-foreground" }}>
+              <Link key={n.to} to={n.to} activeOptions={{ exact: true }} className="rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition hover:bg-secondary/70 hover:text-foreground" activeProps={{ className: "!bg-primary !text-primary-foreground shadow-glow" }}>
                 {n.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <PalettePicker />
             <ThemeToggle />
-            <button onClick={() => setOpen(!open)} aria-label="القائمة" className="grid h-10 w-10 place-items-center rounded-full border bg-card">
+            <button onClick={() => setOpen(!open)} aria-label="القائمة" className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow transition hover:scale-105 xl:hidden">
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
         <AnnouncementBar />
         {open && (
-          <div className="border-t bg-background">
-            <div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 p-4 md:grid-cols-4">
+          <div className="rise border-t border-border/60">
+            <div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 p-3 sm:p-4 md:grid-cols-3">
               {nav.map((n) => (
-                <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="rounded-xl border bg-card px-4 py-3 text-sm font-semibold transition hover:border-primary">
+                <Link key={n.to} to={n.to} onClick={() => setOpen(false)} activeOptions={{ exact: true }} activeProps={{ className: "!border-primary !bg-primary !text-primary-foreground" }} className="rounded-2xl border bg-card/80 px-4 py-3.5 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
                   {n.label}
                 </Link>
               ))}
@@ -170,8 +170,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <PageNavigation />
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="mt-10 border-t bg-teal text-teal-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-4 py-4 text-sm">
+      <footer className="grain relative mt-16 overflow-hidden bg-brand text-teal-foreground">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-accent to-transparent" />
+        <div className="relative mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-4 py-5 text-sm">
           <Link to="/contact" className="font-bold text-accent hover:underline">تواصل معنا</Link>
           <a href={tg(site.contactUsername)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Send className="h-4 w-4" /><span dir="ltr">@{site.contactUsername}</span></a>
           <a href={`mailto:${site.email}`} className="inline-flex min-w-0 items-center gap-2 hover:underline"><Mail className="h-4 w-4 shrink-0" /><span dir="ltr" className="break-all">{site.email}</span></a>
@@ -183,12 +184,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
 export function PageHero({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <section className="relative overflow-hidden border-b">
-      <div className="hero-blob -right-20 -top-20 h-72 w-72 bg-primary" />
-      <div className="hero-blob -bottom-24 left-10 h-64 w-64 bg-accent" style={{ animationDelay: "-3s" }} />
-      <div className="relative mx-auto max-w-7xl px-4 py-16 text-center md:py-20">
-        <h1 className="text-4xl font-black md:text-5xl"><span className="text-gradient">{title}</span></h1>
-        {subtitle && <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">{subtitle}</p>}
+    <section className="relative px-3 pt-4 sm:px-4 sm:pt-6">
+      <div className="grain relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand px-5 py-12 text-center text-primary-foreground shadow-glow md:py-16">
+        <div className="hero-grid absolute inset-0" />
+        <div className="hero-blob -right-16 -top-20 h-64 w-64 bg-primary" />
+        <div className="hero-blob -bottom-24 left-6 h-56 w-56 bg-accent opacity-40" style={{ animationDelay: "-3s" }} />
+        <h1 className="rise relative text-3xl font-black leading-tight sm:text-4xl md:text-5xl">{title}</h1>
+        <span className="relative mx-auto mt-4 block h-1 w-16 rounded-full bg-accent" />
+        {subtitle && <p className="rise relative mx-auto mt-4 max-w-2xl text-base opacity-90 md:text-lg" style={{ animationDelay: ".1s" }}>{subtitle}</p>}
       </div>
     </section>
   );
