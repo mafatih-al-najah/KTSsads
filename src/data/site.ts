@@ -5,6 +5,8 @@ export const site = {
   name: "مفاتيح النجاح",
   tagline: "قناة خاصة بتوفير جميع ما يحتاجه الطلاب في مدارس المتميزين",
   telegramChannel: "https://t.me/sad6ths",
+  sanaatChannel: "https://t.me/ii999uu",
+  whatsappGroup: "https://wa.me/qr/PUOF24PJJNW6A1?s=r",
   contactUsername: "accKTS",
   email: "Sad6kts@gmail.com",
   donateUsername: "i1_h0",
