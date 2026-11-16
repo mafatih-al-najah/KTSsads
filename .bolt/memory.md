@@ -3,7 +3,7 @@
 ## Product intent & audience
 
 - Arabic-language web app built with Vite + React.
-- Contains a "امتيازات المتميزين" (Premium Privileges) page meant to showcase privilege/benefit pages as an interactive image gallery.
+- Contains a "امتيازات المتميزين 2026" (Premium Privileges 2026) page showcasing a premium benefits PDF.
 - Audience: Arabic-speaking users on both mobile and desktop.
 
 ## Brand personality & voice
@@ -13,23 +13,19 @@
 
 ## Visual design & UX direction
 
-- Image gallery/carousel pattern for the privileges section (not vertical stacking).
-- One image visible at a time.
-- Navigation: left/right arrows + swipe/drag (touch and mouse) + horizontal scroll.
-- Page indicators (dots) below the gallery.
+- Privileges page embeds a Google Drive PDF viewer for in-site browsing (instead of the earlier image-gallery/carousel approach).
+- Download button links directly to the Google Drive file.
 - Responsive layout for mobile and desktop.
-- Keyboard navigation support (arrow keys).
-- Smooth, animated transitions between slides.
 
 ## Decisions, constraints & rationale
 
-- PDF pages must be rendered as individual images, not embedded as a PDF viewer.
-- Only one image was available in project files at build time; the five PDF pages referenced by the user were not uploaded into the project. Gallery will show a single image until actual page images are added.
-- Build verified successfully after implementing the gallery.
+- Privileges PDF is hosted on Google Drive and embedded via Drive viewer; no need to extract page images or render them individually.
+- Google Drive file ID: `1Neao1olLsCg3c3kX9jN-eHcZQ28rqbA6` (used for both embed and download).
+- Bug fixed: page was importing `pdfFiles` from the wrong location (it lives outside the `site` object); corrected the import so the page doesn't break.
+- Build passes and checks pass after fix.
 - Framework: Vite + React.
 
 ## Open questions & assumptions
 
-- Source images for the five PDF pages still need to be added to project files; current gallery has only one image.
-- Assumption: user will provide extracted PDF page images (PNG/JPG) to populate the carousel.
-- Preferred image dimensions/aspect ratio for consistent slide sizing not yet specified.
+- Google Drive link sharing must remain public ("anyone with the link") for the embed/download to work.
+- Earlier assumption that five PDF page images would be uploaded is now superseded by the embedded Drive PDF approach.

@@ -124,7 +124,8 @@ export const tg = (u: string) => `https://t.me/${u.replace(/^@/, "")}`;
 export const pdfFiles = {
   excellence: "/امتيازات_المتميزين-25-26.pdf",
   // الصق هنا رابط Google Drive بعد رفع ملف الامتيازات ومشاركته مع الجميع.
-  excellenceGoogleDrive: "",
+  excellenceGoogleDrive:
+    "https://drive.google.com/file/d/1Neao1olLsCg3c3kX9jN-eHcZQ28rqbA6/view?usp=sharing",
   minimums: "/الحدود الدنيا للقبول المركزي دفعة 2026 (متميزين).pdf",
 };
 
