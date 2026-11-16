@@ -14,4 +14,16 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("matches the nested teacher subject and section pages", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    expect(router.matchRoutes("/notes/teachers").at(-1)?.routeId).toBe("/notes/teachers");
+    expect(router.matchRoutes("/notes/teachers/arabic").at(-1)?.routeId).toBe(
+      "/notes/teachers/$subject",
+    );
+    expect(router.matchRoutes("/notes/teachers/arabic/part-one").at(-1)?.routeId).toBe(
+      "/notes/teachers/$subject/$section",
+    );
+  });
 });

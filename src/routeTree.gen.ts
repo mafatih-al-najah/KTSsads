@@ -25,6 +25,8 @@ import { Route as BooksExcellenceRouteImport } from './routes/books/excellence'
 import { Route as NotesIndicatedRouteImport } from './routes/notes/indicated'
 import { Route as NotesTeachersRouteImport } from './routes/notes/teachers'
 import { Route as BooksArabicIndexRouteImport } from './routes/books/arabic/$index'
+import { Route as NotesTeachersSubjectRouteImport } from './routes/notes/teachers/$subject'
+import { Route as NotesTeachersSubjectSectionRouteImport } from './routes/notes/teachers/$subject/$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -106,6 +108,17 @@ const BooksArabicIndexRoute = BooksArabicIndexRouteImport.update({
   path: '/$index',
   getParentRoute: () => BooksArabicRoute,
 } as any)
+const NotesTeachersSubjectRoute = NotesTeachersSubjectRouteImport.update({
+  id: '/$subject',
+  path: '/$subject',
+  getParentRoute: () => NotesTeachersRoute,
+} as any)
+const NotesTeachersSubjectSectionRoute =
+  NotesTeachersSubjectSectionRouteImport.update({
+    id: '/$section',
+    path: '/$section',
+    getParentRoute: () => NotesTeachersSubjectRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,8 +135,10 @@ export interface FileRoutesByFullPath {
   '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
-  '/notes/teachers': typeof NotesTeachersRoute
+  '/notes/teachers': typeof NotesTeachersRouteWithChildren
   '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/notes/teachers/$subject': typeof NotesTeachersSubjectRouteWithChildren
+  '/notes/teachers/$subject/$section': typeof NotesTeachersSubjectSectionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -140,8 +155,10 @@ export interface FileRoutesByTo {
   '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
-  '/notes/teachers': typeof NotesTeachersRoute
+  '/notes/teachers': typeof NotesTeachersRouteWithChildren
   '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/notes/teachers/$subject': typeof NotesTeachersSubjectRouteWithChildren
+  '/notes/teachers/$subject/$section': typeof NotesTeachersSubjectSectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,8 +176,10 @@ export interface FileRoutesById {
   '/books/arabic': typeof BooksArabicRouteWithChildren
   '/books/excellence': typeof BooksExcellenceRoute
   '/notes/indicated': typeof NotesIndicatedRoute
-  '/notes/teachers': typeof NotesTeachersRoute
+  '/notes/teachers': typeof NotesTeachersRouteWithChildren
   '/books/arabic/$index': typeof BooksArabicIndexRoute
+  '/notes/teachers/$subject': typeof NotesTeachersSubjectRouteWithChildren
+  '/notes/teachers/$subject/$section': typeof NotesTeachersSubjectSectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +200,8 @@ export interface FileRouteTypes {
     | '/notes/indicated'
     | '/notes/teachers'
     | '/books/arabic/$index'
+    | '/notes/teachers/$subject'
+    | '/notes/teachers/$subject/$section'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -199,6 +220,8 @@ export interface FileRouteTypes {
     | '/notes/indicated'
     | '/notes/teachers'
     | '/books/arabic/$index'
+    | '/notes/teachers/$subject'
+    | '/notes/teachers/$subject/$section'
   id:
     | '__root__'
     | '/'
@@ -217,6 +240,8 @@ export interface FileRouteTypes {
     | '/notes/indicated'
     | '/notes/teachers'
     | '/books/arabic/$index'
+    | '/notes/teachers/$subject'
+    | '/notes/teachers/$subject/$section'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -347,6 +372,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksArabicIndexRouteImport
       parentRoute: typeof BooksArabicRoute
     }
+    '/notes/teachers/$subject': {
+      id: '/notes/teachers/$subject'
+      path: '/$subject'
+      fullPath: '/notes/teachers/$subject'
+      preLoaderRoute: typeof NotesTeachersSubjectRouteImport
+      parentRoute: typeof NotesTeachersRoute
+    }
+    '/notes/teachers/$subject/$section': {
+      id: '/notes/teachers/$subject/$section'
+      path: '/$section'
+      fullPath: '/notes/teachers/$subject/$section'
+      preLoaderRoute: typeof NotesTeachersSubjectSectionRouteImport
+      parentRoute: typeof NotesTeachersSubjectRoute
+    }
   }
 }
 
@@ -374,14 +413,37 @@ const BooksRouteChildren: BooksRouteChildren = {
 
 const BooksRouteWithChildren = BooksRoute._addFileChildren(BooksRouteChildren)
 
+interface NotesTeachersSubjectRouteChildren {
+  NotesTeachersSubjectSectionRoute: typeof NotesTeachersSubjectSectionRoute
+}
+
+const NotesTeachersSubjectRouteChildren: NotesTeachersSubjectRouteChildren = {
+  NotesTeachersSubjectSectionRoute: NotesTeachersSubjectSectionRoute,
+}
+
+const NotesTeachersSubjectRouteWithChildren =
+  NotesTeachersSubjectRoute._addFileChildren(NotesTeachersSubjectRouteChildren)
+
+interface NotesTeachersRouteChildren {
+  NotesTeachersSubjectRoute: typeof NotesTeachersSubjectRouteWithChildren
+}
+
+const NotesTeachersRouteChildren: NotesTeachersRouteChildren = {
+  NotesTeachersSubjectRoute: NotesTeachersSubjectRouteWithChildren,
+}
+
+const NotesTeachersRouteWithChildren = NotesTeachersRoute._addFileChildren(
+  NotesTeachersRouteChildren,
+)
+
 interface NotesRouteChildren {
   NotesIndicatedRoute: typeof NotesIndicatedRoute
-  NotesTeachersRoute: typeof NotesTeachersRoute
+  NotesTeachersRoute: typeof NotesTeachersRouteWithChildren
 }
 
 const NotesRouteChildren: NotesRouteChildren = {
   NotesIndicatedRoute: NotesIndicatedRoute,
-  NotesTeachersRoute: NotesTeachersRoute,
+  NotesTeachersRoute: NotesTeachersRouteWithChildren,
 }
 
 const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)

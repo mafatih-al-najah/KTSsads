@@ -188,6 +188,107 @@ export const teacherNotes: { subject: string; notes: StudyResource[] }[] = [
   { subject: "الفرنسي", notes: [] },
 ];
 
+type TeacherStudySection = {
+  slug: string;
+  label: string;
+  children?: { slug: string; label: string }[];
+};
+
+const chapterNumbers = [
+  "الأول",
+  "الثاني",
+  "الثالث",
+  "الرابع",
+  "الخامس",
+  "السادس",
+  "السابع",
+  "الثامن",
+  "التاسع",
+];
+
+const chapters = (count: number): TeacherStudySection[] =>
+  chapterNumbers.slice(0, count).map((number, index) => ({
+    slug: `chapter-${index + 1}`,
+    label: `الفصل ${number} | CHAPTER ${index + 1}`,
+  }));
+
+export const teacherStudyStructure: {
+  slug: string;
+  subject: string;
+  sections: TeacherStudySection[];
+}[] = [
+  {
+    slug: "arabic",
+    subject: "العربي",
+    sections: [
+      {
+        slug: "part-one",
+        label: "الجزء الأول",
+        children: [
+          { slug: "grammar", label: "القواعد" },
+          { slug: "literature", label: "الأدب" },
+        ],
+      },
+      {
+        slug: "part-two",
+        label: "الجزء الثاني",
+        children: [
+          { slug: "grammar", label: "القواعد" },
+          { slug: "literature", label: "الأدب" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "math",
+    subject: "الرياضيات",
+    sections: chapters(5),
+  },
+  {
+    slug: "english",
+    subject: "الانكليزي",
+    sections: Array.from({ length: 8 }, (_, index) => ({
+      slug: `unit-${index + 1}`,
+      label: `يونت ${index + 1} | UNIT ${index + 1}`,
+    })),
+  },
+  {
+    slug: "chemistry",
+    subject: "الكيمياء",
+    sections: chapters(8),
+  },
+  {
+    slug: "physics",
+    subject: "الفيزياء",
+    sections: chapters(9),
+  },
+  {
+    slug: "biology",
+    subject: "الاحياء",
+    sections: chapters(5),
+  },
+  {
+    slug: "islamic",
+    subject: "الاسلامية",
+    sections: ["الأولى", "الثانية", "الثالثة", "الرابعة", "الخامسة"].map((number, index) => ({
+      slug: `unit-${index + 1}`,
+      label: `الوحدة ${number}`,
+    })),
+  },
+  {
+    slug: "french",
+    subject: "الفرنسي",
+    sections: [
+      { slug: "new-curriculum", label: "المنهج الجديد" },
+      { slug: "old-curriculum", label: "المنهج القديم" },
+    ],
+  },
+];
+
+// أضف الواجبات هنا لكل مادة؛ تظل خانات المواد ظاهرة حتى عند عدم توفر ملفات.
+export const teacherHomework: { subject: string; resources: StudyResource[] }[] =
+  teacherStudyStructure.map(({ subject }) => ({ subject, resources: [] }));
+
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
 export const teacherAds: {
   title: string;
