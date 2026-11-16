@@ -175,7 +175,18 @@ export const arabicBooks: StudyResource[] = [
 // للكتاب ذي الجزأين، أضف عنصرين داخل parts: "الجزء الأول" و"الجزء الثاني"، لكل منهما روابطه.
 export const excellenceBooks: StudyResource[] = [];
 export const indicatedBooks: StudyResource[] = [];
-export const teacherNotes: StudyResource[] = [];
+// 📝 ملازم المدرسين حسب المادة: لإضافة ملزمة، ضعها داخل notes للمادة المطلوبة بهذا الشكل:
+// { label: "عنوان الملزمة", parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }] },
+export const teacherNotes: { subject: string; notes: StudyResource[] }[] = [
+  { subject: "العربي", notes: [] },
+  { subject: "الرياضيات", notes: [] },
+  { subject: "الانكليزي", notes: [] },
+  { subject: "الكيمياء", notes: [] },
+  { subject: "الفيزياء", notes: [] },
+  { subject: "الاحياء", notes: [] },
+  { subject: "الاسلامية", notes: [] },
+  { subject: "الفرنسي", notes: [] },
+];
 
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
 export const teacherAds: {
