@@ -122,8 +122,9 @@ export const tg = (u: string) => `https://t.me/${u.replace(/^@/, "")}`;
 // الطريقة: ارفع الملف على Google Drive ← مشاركة ← "أي شخص لديه الرابط" ← انسخ الرابط والصقه هنا.
 // أو ضع الملف داخل مجلد public/files باسم مثل excellence.pdf واكتب هنا "/files/excellence.pdf"
 export const pdfFiles = {
-  excellence: "",
-  // يمكن استبدال هذا المسار برابط Google Drive بعد رفع الملف ومشاركته.
+  excellence: "/امتيازات_المتميزين-25-26.pdf",
+  // الصق هنا رابط Google Drive بعد رفع ملف الامتيازات ومشاركته مع الجميع.
+  excellenceGoogleDrive: "",
   minimums: "/الحدود الدنيا للقبول المركزي دفعة 2026 (متميزين).pdf",
 };
 

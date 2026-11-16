@@ -3,14 +3,15 @@ import { Button } from "@/components/ui/button";
 import { pdfLinks } from "@/lib/pdf-links";
 import { DownloadChoices } from "@/components/DownloadChoices";
 
-export function PdfViewer({ url, title, telegramUrl }: { url: string; title: string; telegramUrl?: string }) {
+export function PdfViewer({ url, title, telegramUrl, downloadUrl }: { url: string; title: string; telegramUrl?: string; downloadUrl?: string }) {
   if (!url.trim())
     return (
       <div className="border-y py-16 text-center"><p className="mb-4 text-muted-foreground">لا يوجد ملف للعرض</p>{telegramUrl !== undefined && <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} />}</div>
     );
   const sourceUrl = url.trim();
   const links = pdfLinks(sourceUrl);
-  const filename = title.endsWith(".pdf") ? title : `${title}.pdf`;
+  const downloadLinks = downloadUrl?.trim() ? pdfLinks(downloadUrl) : links;
+  const filename = title.endsWith(".pdf") ? title : `${title}.pdf`; 
 
   return (
     <section className="overflow-hidden rounded-3xl border bg-card shadow-glow">
@@ -25,9 +26,9 @@ export function PdfViewer({ url, title, telegramUrl }: { url: string; title: str
           </div>
         </div>
         {telegramUrl !== undefined ? <DownloadChoices title={title} parts={[{ label: title, url, telegramUrl }]} className="btn-lime text-sm" /> : <Button asChild className="btn-lime text-sm">
-          <a href={links.download} download={links.isDrive ? undefined : filename} target={links.isDrive ? "_blank" : undefined} rel="noopener noreferrer">
+          <a href={downloadLinks.download} download={downloadLinks.isDrive ? undefined : filename} target={downloadLinks.isDrive ? "_blank" : undefined} rel="noopener noreferrer">
             <Download className="h-4 w-4" />
-            تحميل الملف
+            {downloadLinks.isDrive ? "تحميل عبر Google Drive" : "تحميل الملف"}
           </a>
         </Button>}
       </div>
