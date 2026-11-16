@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, ClipboardList } from "lucide-react";
 import { ResourceLibrary } from "@/components/ResourceLibrary";
 import { meta, PageHero } from "@/components/SiteShell";
-import { teacherHomework, teacherStudyStructure } from "@/data/site";
+import { chapterNotes, teacherHomework, teacherStudyStructure } from "@/data/site";
 
 export const Route = createFileRoute("/notes/teachers/$subject/$section")({
   head: ({ params }) => {
@@ -23,6 +23,7 @@ function TeacherSectionPage() {
   const isHomework = sectionSlug === "homework";
   const homework =
     teacherHomework.find((item) => item.subject === subject?.subject)?.resources ?? [];
+  const sectionNotes = chapterNotes[subjectSlug] ?? {};
 
   if (!subject || (!isHomework && !section)) {
     return (
@@ -83,11 +84,23 @@ function TeacherSectionPage() {
                 <h2 className="font-bold">الواجبات</h2>
               </Link>
             </div>
+            {section.children.map((child) => {
+              const notes = sectionNotes[`${section.slug}/${child.slug}`] ?? [];
+              return notes.length > 0 ? (
+                <section key={child.slug} className="mt-8 border-t pt-6">
+                  <h2 className="text-xl font-bold">ملازم {child.label}</h2>
+                  <ResourceLibrary resources={notes} emptyText="" />
+                </section>
+              ) : null;
+            })}
           </>
         ) : isHomework ? (
           <ResourceLibrary resources={homework} emptyText="لا توجد واجبات مرفوعة حالياً." />
         ) : (
-          <ResourceLibrary resources={[]} emptyText="لا توجد ملازم مرفوعة لهذا الفصل حالياً." />
+          <ResourceLibrary
+            resources={sectionNotes[sectionSlug] ?? []}
+            emptyText="لا توجد ملازم مرفوعة لهذا الفصل حالياً."
+          />
         )}
       </div>
     </>

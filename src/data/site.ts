@@ -285,6 +285,31 @@ export const teacherStudyStructure: {
   },
 ];
 
+// 📝 ملازم الفصول: كل ملزمة تُكتب بنفس شكل الكتب بالضبط (رابط Google Drive + رابط تليكرام).
+// المفتاح الأول = اسم المادة بالإنكليزي: arabic, math, english, chemistry, physics, biology, islamic, french
+// المفتاح الثاني = الفصل: chapter-1 ... chapter-9 (للإنكليزي والإسلامية: unit-1 ...)
+// للفرنسي: new-curriculum أو old-curriculum
+// للعربي: part-one/grammar أو part-one/literature أو part-two/grammar أو part-two/literature
+// مثال جاهز (احذف // من بداية الأسطر وغيّر الاسم والروابط):
+// physics: {
+//   "chapter-1": [
+//     {
+//       label: "ملزمة الفصل الأول - أ. فلان",
+//       parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }],
+//     },
+//   ],
+// },
+export const chapterNotes: Partial<Record<string, Partial<Record<string, StudyResource[]>>>> = {
+  arabic: {},
+  math: {},
+  english: {},
+  chemistry: {},
+  physics: {},
+  biology: {},
+  islamic: {},
+  french: {},
+};
+
 // أضف الواجبات هنا لكل مادة؛ تظل خانات المواد ظاهرة حتى عند عدم توفر ملفات.
 export const teacherHomework: { subject: string; resources: StudyResource[] }[] =
   teacherStudyStructure.map(({ subject }) => ({ subject, resources: [] }));
