@@ -12,7 +12,7 @@ export const Route = createFileRoute("/excellence")({
       <div className="mx-auto max-w-5xl px-4 py-10">
         <PdfViewer
           title="امتيازات المتميزين 2026"
-          url={pdfFiles.excellence}
+          url={pdfFiles.excellenceGoogleDrive.trim() || pdfFiles.excellence}
           downloadUrl={pdfFiles.excellenceGoogleDrive}
         />
         {!pdfFiles.excellenceGoogleDrive.trim() && (
