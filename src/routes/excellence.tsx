@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ExcellenceGallery } from "@/components/ExcellenceGallery";
 import { meta, PageHero } from "@/components/SiteShell";
 import { site } from "@/data/site";
 
@@ -6,17 +7,9 @@ export const Route = createFileRoute("/excellence")({
   head: () => meta("امتيازات المتميزين 2026", "امتيازات طلاب المتميزين لدفعة 2026 معروضة مباشرة على الموقع."),
   component: () => (
     <>
-      <PageHero title="امتيازات المتميزين 2026" />
-      <div className="mx-auto max-w-4xl px-4 py-10">
-        {site.excellenceImageUrl ? (
-          <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-            <img src={site.excellenceImageUrl} alt="امتيازات المتميزين 2026" className="h-auto w-full" />
-          </div>
-        ) : (
-          <p className="rounded-2xl border bg-card p-10 text-center text-lg text-muted-foreground">
-            سيتم نشر صورة الامتياز قريباً
-          </p>
-        )}
+      <PageHero title="امتيازات المتميزين 2026" subtitle="تصفح الصفحات كصور واضحة من داخل الموقع" />
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <ExcellenceGallery images={site.excellenceImageUrl ? [site.excellenceImageUrl] : []} />
       </div>
     </>
   ),
