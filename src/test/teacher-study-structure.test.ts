@@ -11,7 +11,7 @@ describe("teacher study structure", () => {
   });
 
   it("Arabic curriculum French is for outstanding students and has no new curriculum", () => {
-    const french = notesTracks[1].structure.find((s) => s.slug === "french");
+    const french = notesTracks[1]?.structure.find((s) => s.slug === "french");
     expect(french?.note).toBe("لطلاب المتفوقين فقط");
     expect(french?.sections.map((s) => s.slug)).toEqual(["old-curriculum"]);
   });
