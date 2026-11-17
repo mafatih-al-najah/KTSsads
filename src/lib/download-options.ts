@@ -1,7 +1,7 @@
 import { pdfLinks } from "@/lib/pdf-links";
 
 export type ResourcePart = { label: string; url: string; telegramUrl?: string };
-export type StudyResource = { label: string; parts: ResourcePart[] };
+export type StudyResource = { label: string; teacher?: string; year?: string; parts: ResourcePart[] };
 
 export function downloadOptions(part?: ResourcePart) {
   return [

@@ -1,15 +1,28 @@
 import { describe, expect, it } from "vitest";
-import { teacherHomework, teacherStudyStructure } from "@/data/site";
+import { chapterNotes, homeworkNotes, notesTracks, teacherStudyStructure } from "@/data/site";
 
 describe("teacher study structure", () => {
   const sectionsFor = (slug: string) =>
     teacherStudyStructure.find((item) => item.slug === slug)?.sections ?? [];
 
-  it("shows all eight subjects and an assignments list for each", () => {
-    expect(teacherStudyStructure).toHaveLength(8);
-    expect(teacherHomework.map((item) => item.subject)).toEqual(
-      teacherStudyStructure.map((item) => item.subject),
+  it("offers excellence and Arabic-curriculum tracks with all eight subjects", () => {
+    expect(notesTracks.map((t) => t.title)).toEqual(["ملازم المتميزين", "ملازم المنهج العربي"]);
+    for (const t of notesTracks) expect(t.structure).toHaveLength(8);
+  });
+
+  it("Arabic curriculum French is for outstanding students and has no new curriculum", () => {
+    const french = notesTracks[1].structure.find((s) => s.slug === "french");
+    expect(french?.note).toBe("لطلاب المتفوقين فقط");
+    expect(french?.sections.map((s) => s.slug)).toEqual(["old-curriculum"]);
+  });
+
+  it("has physics notes and homework for chapters 1-3 by عصام الشمري 2027", () => {
+    expect(chapterNotes["physics"]?.["chapter-1"]?.[0]?.label).toBe("كلاميات الفصل الأول");
+    expect(homeworkNotes["physics"]?.["chapter-2"]?.[0]?.parts[0]?.telegramUrl).toBe(
+      "https://telegram.me/mafatee7_test_bot?start=6631657380",
     );
+    expect(homeworkNotes["physics"]?.["chapter-3"]?.[0]?.teacher).toBe("عصام الشمري");
+    expect(chapterNotes["arabic"]?.["part-one/grammar"]).toHaveLength(5);
   });
 
   it("includes the requested chapter and unit counts", () => {

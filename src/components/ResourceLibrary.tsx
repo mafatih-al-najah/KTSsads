@@ -11,7 +11,13 @@ function ResourceItem({ resource }: { resource: StudyResource }) {
   return (
     <article className="border-b py-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="min-w-0 text-lg font-bold">{resource.label}</h2>
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold">{resource.label}</h2>
+          {(resource.teacher || resource.year) && <div className="mt-2 flex flex-wrap gap-2 text-sm">
+            {resource.teacher && <span className="rounded-full bg-secondary px-3 py-1 font-semibold text-secondary-foreground">{resource.teacher}</span>}
+            {resource.year && <span className="rounded-full border px-3 py-1 text-muted-foreground">{resource.year}</span>}
+          </div>}
+        </div>
         <div className="flex flex-wrap gap-2">
           {resource.parts.some((item) => item.url.trim()) && <Button variant="outline" onClick={() => setPreview(!preview)} aria-expanded={preview}><BookOpen />{preview ? "إخفاء الكتاب" : "تصفح"}</Button>}
           <DownloadChoices title={resource.label} parts={resource.parts} />

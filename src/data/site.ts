@@ -215,6 +215,7 @@ const chapters = (count: number): TeacherStudySection[] =>
 export const teacherStudyStructure: {
   slug: string;
   subject: string;
+  note?: string;
   sections: TeacherStudySection[];
 }[] = [
   {
@@ -285,34 +286,86 @@ export const teacherStudyStructure: {
   },
 ];
 
-// 📝 ملازم الفصول: كل ملزمة تُكتب بنفس شكل الكتب بالضبط (رابط Google Drive + رابط تليكرام).
-// المفتاح الأول = اسم المادة بالإنكليزي: arabic, math, english, chemistry, physics, biology, islamic, french
-// المفتاح الثاني = الفصل: chapter-1 ... chapter-9 (للإنكليزي والإسلامية: unit-1 ...)
-// للفرنسي: new-curriculum أو old-curriculum
+// 📝 الملازم والواجبات: كل ملزمة تُكتب بهذا الشكل (الاسم، المدرس، السنة، ثم الروابط):
+// { label: "اسم الملزمة", teacher: "اسم المدرس", year: "2027", parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }] },
+// المفتاح الأول = المادة: arabic, math, english, chemistry, physics, biology, islamic, french
+// المفتاح الثاني = الفصل: chapter-1 ... (للإنكليزي والإسلامية: unit-1 ...)، للفرنسي: new-curriculum أو old-curriculum
 // للعربي: part-one/grammar أو part-one/literature أو part-two/grammar أو part-two/literature
-// مثال جاهز (احذف // من بداية الأسطر وغيّر الاسم والروابط):
-// physics: {
-//   "chapter-1": [
-//     {
-//       label: "ملزمة الفصل الأول - أ. فلان",
-//       parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }],
-//     },
-//   ],
-// },
-export const chapterNotes: Partial<Record<string, Partial<Record<string, StudyResource[]>>>> = {
-  arabic: {},
+type NotesBySection = Partial<Record<string, Partial<Record<string, StudyResource[]>>>>;
+
+// ⭐ ملازم المتميزين — خانة «الفصول»
+export const chapterNotes: NotesBySection = {
+  arabic: {
+    "part-one/grammar": [
+      { label: "ملزمة أستاذنا — أسلوب الاستفهام", teacher: "عقيل الزبيدي", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=7259897256" }] },
+      { label: "ملزمة أستاذنا — أسلوب النفي", teacher: "عقيل الزبيدي", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=3323249882" }] },
+      { label: "ملزمة أستاذنا — أسلوب التوكيد", teacher: "عقيل الزبيدي", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=1975932053" }] },
+      { label: "ملزمة أستاذنا — أسلوب التقديم والتأخير", teacher: "عقيل الزبيدي", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=8308226031" }] },
+      { label: "ملزمة أستاذنا — أسلوب النداء", teacher: "عقيل الزبيدي", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=2711266843" }] },
+    ],
+  },
   math: {},
   english: {},
   chemistry: {},
-  physics: {},
+  physics: {
+    "chapter-1": [
+      { label: "كلاميات الفصل الأول", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=5316089838" }] },
+    ],
+    "chapter-2": [
+      { label: "كلاميات الفصل الثاني", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=3171811744" }] },
+    ],
+    "chapter-3": [
+      { label: "كلاميات الفصل الثالث", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=9242938591" }] },
+    ],
+  },
   biology: {},
   islamic: {},
   french: {},
 };
 
-// أضف الواجبات هنا لكل مادة؛ تظل خانات المواد ظاهرة حتى عند عدم توفر ملفات.
-export const teacherHomework: { subject: string; resources: StudyResource[] }[] =
-  teacherStudyStructure.map(({ subject }) => ({ subject, resources: [] }));
+// ⭐ ملازم المتميزين — خانة «الواجبات» (نفس مفاتيح الفصول)
+export const homeworkNotes: NotesBySection = {
+  physics: {
+    "chapter-1": [
+      { label: "واجبات الفصل الأول", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=3438340348" }] },
+    ],
+    "chapter-2": [
+      { label: "واجبات الفصل الثاني", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=6631657380" }] },
+    ],
+    "chapter-3": [
+      { label: "واجبات الفصل الثالث", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=9242938591" }] },
+    ],
+  },
+};
+
+// 📘 ملازم المنهج العربي — خانة «الفصول» (نفس الشكل والمفاتيح، والفرنسي: old-curriculum فقط)
+export const arabicCurriculumChapterNotes: NotesBySection = {};
+
+// 📘 ملازم المنهج العربي — خانة «الواجبات»
+export const arabicCurriculumHomeworkNotes: NotesBySection = {};
+
+export type NotesTrack = {
+  slug: string;
+  title: string;
+  structure: typeof teacherStudyStructure;
+  chapters: NotesBySection;
+  homework: NotesBySection;
+};
+
+export const notesTracks: NotesTrack[] = [
+  { slug: "teachers", title: "ملازم المتميزين", structure: teacherStudyStructure, chapters: chapterNotes, homework: homeworkNotes },
+  {
+    slug: "arabic",
+    title: "ملازم المنهج العربي",
+    structure: teacherStudyStructure.map((item) =>
+      item.slug === "french"
+        ? { ...item, note: "لطلاب المتفوقين فقط", sections: item.sections.filter((s) => s.slug !== "new-curriculum") }
+        : item,
+    ),
+    chapters: arabicCurriculumChapterNotes,
+    homework: arabicCurriculumHomeworkNotes,
+  },
+];
 
 // 📢 إعلانات المدرسين: انسخ سطراً وعدّله لإضافة إعلان جديد، واحذفه لإزالة الإعلان.
 export const teacherAds: {
