@@ -309,13 +309,13 @@ export const chapterNotes: NotesBySection = {
   chemistry: {},
   physics: {
     "chapter-1": [
-      { label: "كلاميات الفصل الأول", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=5316089838" }] },
+      { label: "كلاميات الفصل الأول", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "https://drive.google.com/file/d/1C-9UwpO32xmqPWZRhTFkO6l-_JHMWh94/view?usp=sharing", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=5316089838" }] },
     ],
     "chapter-2": [
-      { label: "كلاميات الفصل الثاني", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=3171811744" }] },
+      { label: "كلاميات الفصل الثاني", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "https://drive.google.com/file/d/1IBPTkGrfqslUpaV1cGIq9b7addEo-mqm/view?usp=sharing", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=3171811744" }] },
     ],
     "chapter-3": [
-      { label: "كلاميات الفصل الثالث", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=9242938591" }] },
+      { label: "كلاميات الفصل الثالث", teacher: "عصام الشمري", year: "2027", parts: [{ label: "الملزمة كاملة", url: "https://drive.google.com/file/d/1acOybx4djVjfoARrSSaEroFE31K10Pox/view?usp=sharing", telegramUrl: "https://telegram.me/mafatee7_test_bot?start=9242938591" }] },
     ],
   },
   biology: {},
