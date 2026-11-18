@@ -249,9 +249,28 @@
   transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s, box-shadow .35s;
   &.group:hover { transform: translateY(-3px) scale(1.06); border-color: var(--violet); box-shadow: var(--shadow-glow); }
 }
+
+@utility part-card {
+  cursor: pointer;
+  background: var(--color-card);
+  border-color: color-mix(in oklab, var(--color-border) 70%, transparent);
+  &:hover { transform: translateY(-4px); border-color: var(--color-primary); box-shadow: 0 14px 40px -16px color-mix(in oklab, var(--color-primary) 55%, transparent); }
+  &[aria-pressed="true"] {
+    border-color: var(--color-primary);
+    box-shadow: 0 14px 50px -18px color-mix(in oklab, var(--color-primary) 60%, transparent);
+    background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 7%, var(--color-card)), var(--color-card));
+  }
+  &[aria-pressed="true"] .part-card-glow { opacity: 1; }
+}
+@utility part-card-glow {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .45s;
+  background: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 70%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise, .spin-slow, .hero-blob { animation: none !important; }
   .btn-brand::after, .btn-lime::after { display: none; }
   .card-lift:active, .btn-brand:active, .btn-lime:active { transform: none; }
   .teacher-avatar:hover { transform: none; }
+  .part-card:hover { transform: none; }
 }
