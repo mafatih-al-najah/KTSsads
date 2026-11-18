@@ -161,12 +161,81 @@ export const arabicBooks: StudyResource[] = [
       },
     ],
   },
-  { label: "كتاب الإنكليزي 2026", parts: [] },
-  { label: "كتاب الفيزياء 2026", parts: [] },
-  { label: "كتاب الكيمياء 2026", parts: [] },
-  { label: "كتاب الأحياء 2026", parts: [] },
-  { label: "كتاب الرياضيات 2026", parts: [] },
-  { label: "كتاب الفرنسي 2026 (للمتوفقين)", parts: [] },
+  {
+    label: "كتاب الإنكليزي 2026",
+    parts: [
+      {
+        label: "كتاب الطالب كامل",
+        url: "https://drive.google.com/file/d/15gKj-TmjEaFbP2QStaYwRiAAWoqbDbT2/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "كتاب النشاط كامل",
+        url: "https://drive.google.com/file/d/1pBMjqDQRehUGGSyzdGpoQjuNRC-H7TfP/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "دليل المدرس كامل",
+        url: "https://drive.google.com/file/d/1VNnYnyxt6c_0UL3JyuF0b0tteV9tKlhf/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الفيزياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1unJocoJQzo2EcxTOkVlbcRo3qkAHcP4e/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الكيمياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1zFxxy7RMsSZruIHLgb9Jrki-rQZoLZar/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الأحياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1YpJioFfjYdmdBOLK3ZpRXss1O3PsjerA/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الرياضيات 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1wScXZdhnGKpjs4QkXSR2pivmTVNo-Ee7/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الفرنسي 2026 (للمتوفقين)",
+    parts: [
+      {
+        label: "المنهج القديم",
+        url: "https://drive.google.com/file/d/13KfpYFxM_cT0RC_pxzXG3xlN1t9JXHlF/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "المنهج الجديد",
+        url: "https://drive.google.com/file/d/1R__XGYtLXIh3hJg7gP5CET939ZVVT3o2/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
 ];
 
 // 📚 كتب المتميزين والكتب المؤشرة وملازم المدرسين: أضف العناصر بنفس النموذج.
