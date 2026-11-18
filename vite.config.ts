@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
   nitro: {
-    preset: "node-server",
+    preset: process.env["NITRO_PRESET"] || (process.env["VERCEL"] ? "vercel" : "node-server"),
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
