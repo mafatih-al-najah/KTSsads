@@ -4,6 +4,7 @@ import { Menu, Moon, Sun, X, Send, Palette, Check, Mail } from "lucide-react";
 import { site, tg } from "@/data/site";
 import { PageNavigation } from "@/components/PageNavigation";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { GlobalSearch } from "@/components/GlobalSearch";
 import { Button } from "@/components/ui/button";
 
 export const nav = [
@@ -148,6 +149,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <GlobalSearch />
             <PalettePicker />
             <ThemeToggle />
             <button onClick={() => setOpen(!open)} aria-label="القائمة" className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow transition hover:scale-105 xl:hidden">

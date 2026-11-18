@@ -25,7 +25,6 @@ import { Route as BooksExcellenceRouteImport } from './routes/books/excellence'
 import { Route as NotesTrackRouteImport } from './routes/notes/$track'
 import { Route as NotesIndicatedRouteImport } from './routes/notes/indicated'
 import { Route as BooksArabicIndexRouteImport } from './routes/books/arabic/$index'
-import { Route as BooksExcellenceIndexRouteImport } from './routes/books/excellence/$index'
 import { Route as NotesTrackSubjectRouteImport } from './routes/notes/$track/$subject'
 import { Route as NotesTrackSubjectTeacherRouteImport } from './routes/notes/$track/$subject/$teacher'
 import { Route as NotesTrackSubjectTeacherSectionRouteImport } from './routes/notes/$track/$subject/$teacher/$section'
@@ -111,11 +110,6 @@ const BooksArabicIndexRoute = BooksArabicIndexRouteImport.update({
   path: '/$index',
   getParentRoute: () => BooksArabicRoute,
 } as any)
-const BooksExcellenceIndexRoute = BooksExcellenceIndexRouteImport.update({
-  id: '/$index',
-  path: '/$index',
-  getParentRoute: () => BooksExcellenceRoute,
-} as any)
 const NotesTrackSubjectRoute = NotesTrackSubjectRouteImport.update({
   id: '/$subject',
   path: '/$subject',
@@ -153,11 +147,10 @@ export interface FileRoutesByFullPath {
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
   '/books/arabic': typeof BooksArabicRouteWithChildren
-  '/books/excellence': typeof BooksExcellenceRouteWithChildren
+  '/books/excellence': typeof BooksExcellenceRoute
   '/notes/$track': typeof NotesTrackRouteWithChildren
   '/notes/indicated': typeof NotesIndicatedRoute
   '/books/arabic/$index': typeof BooksArabicIndexRoute
-  '/books/excellence/$index': typeof BooksExcellenceIndexRoute
   '/notes/$track/$subject': typeof NotesTrackSubjectRouteWithChildren
   '/notes/$track/$subject/$teacher': typeof NotesTrackSubjectTeacherRouteWithChildren
   '/notes/$track/$subject/$teacher/$section': typeof NotesTrackSubjectTeacherSectionRouteWithChildren
@@ -176,11 +169,10 @@ export interface FileRoutesByTo {
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
   '/books/arabic': typeof BooksArabicRouteWithChildren
-  '/books/excellence': typeof BooksExcellenceRouteWithChildren
+  '/books/excellence': typeof BooksExcellenceRoute
   '/notes/$track': typeof NotesTrackRouteWithChildren
   '/notes/indicated': typeof NotesIndicatedRoute
   '/books/arabic/$index': typeof BooksArabicIndexRoute
-  '/books/excellence/$index': typeof BooksExcellenceIndexRoute
   '/notes/$track/$subject': typeof NotesTrackSubjectRouteWithChildren
   '/notes/$track/$subject/$teacher': typeof NotesTrackSubjectTeacherRouteWithChildren
   '/notes/$track/$subject/$teacher/$section': typeof NotesTrackSubjectTeacherSectionRouteWithChildren
@@ -200,11 +192,10 @@ export interface FileRoutesById {
   '/notes': typeof NotesRouteWithChildren
   '/tips': typeof TipsRoute
   '/books/arabic': typeof BooksArabicRouteWithChildren
-  '/books/excellence': typeof BooksExcellenceRouteWithChildren
+  '/books/excellence': typeof BooksExcellenceRoute
   '/notes/$track': typeof NotesTrackRouteWithChildren
   '/notes/indicated': typeof NotesIndicatedRoute
   '/books/arabic/$index': typeof BooksArabicIndexRoute
-  '/books/excellence/$index': typeof BooksExcellenceIndexRoute
   '/notes/$track/$subject': typeof NotesTrackSubjectRouteWithChildren
   '/notes/$track/$subject/$teacher': typeof NotesTrackSubjectTeacherRouteWithChildren
   '/notes/$track/$subject/$teacher/$section': typeof NotesTrackSubjectTeacherSectionRouteWithChildren
@@ -229,7 +220,6 @@ export interface FileRouteTypes {
     | '/notes/$track'
     | '/notes/indicated'
     | '/books/arabic/$index'
-    | '/books/excellence/$index'
     | '/notes/$track/$subject'
     | '/notes/$track/$subject/$teacher'
     | '/notes/$track/$subject/$teacher/$section'
@@ -252,7 +242,6 @@ export interface FileRouteTypes {
     | '/notes/$track'
     | '/notes/indicated'
     | '/books/arabic/$index'
-    | '/books/excellence/$index'
     | '/notes/$track/$subject'
     | '/notes/$track/$subject/$teacher'
     | '/notes/$track/$subject/$teacher/$section'
@@ -275,7 +264,6 @@ export interface FileRouteTypes {
     | '/notes/$track'
     | '/notes/indicated'
     | '/books/arabic/$index'
-    | '/books/excellence/$index'
     | '/notes/$track/$subject'
     | '/notes/$track/$subject/$teacher'
     | '/notes/$track/$subject/$teacher/$section'
@@ -410,13 +398,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksArabicIndexRouteImport
       parentRoute: typeof BooksArabicRoute
     }
-    '/books/excellence/$index': {
-      id: '/books/excellence/$index'
-      path: '/$index'
-      fullPath: '/books/excellence/$index'
-      preLoaderRoute: typeof BooksExcellenceIndexRouteImport
-      parentRoute: typeof BooksExcellenceRoute
-    }
     '/notes/$track/$subject': {
       id: '/notes/$track/$subject'
       path: '/$subject'
@@ -460,26 +441,14 @@ const BooksArabicRouteWithChildren = BooksArabicRoute._addFileChildren(
   BooksArabicRouteChildren,
 )
 
-interface BooksExcellenceRouteChildren {
-  BooksExcellenceIndexRoute: typeof BooksExcellenceIndexRoute
-}
-
-const BooksExcellenceRouteChildren: BooksExcellenceRouteChildren = {
-  BooksExcellenceIndexRoute: BooksExcellenceIndexRoute,
-}
-
-const BooksExcellenceRouteWithChildren = BooksExcellenceRoute._addFileChildren(
-  BooksExcellenceRouteChildren,
-)
-
 interface BooksRouteChildren {
   BooksArabicRoute: typeof BooksArabicRouteWithChildren
-  BooksExcellenceRoute: typeof BooksExcellenceRouteWithChildren
+  BooksExcellenceRoute: typeof BooksExcellenceRoute
 }
 
 const BooksRouteChildren: BooksRouteChildren = {
   BooksArabicRoute: BooksArabicRouteWithChildren,
-  BooksExcellenceRoute: BooksExcellenceRouteWithChildren,
+  BooksExcellenceRoute: BooksExcellenceRoute,
 }
 
 const BooksRouteWithChildren = BooksRoute._addFileChildren(BooksRouteChildren)
