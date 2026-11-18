@@ -225,11 +225,13 @@ export function buildSearchIndex(): SearchItem[] {
     items.push({
       id: `excellence-book-${index}`,
       title: book.label,
-      subtitle: "كتب منهج المتميزين",
+      subtitle: ["كتب منهج المتميزين", book.parts.length ? `${book.parts.length} جزء` : "قريباً"]
+        .filter(Boolean)
+        .join(" · "),
       category: "books",
       topic: "كتب منهج المتميزين",
-      keywords: [book.label, "كتاب", "كتب", "المتميزين"],
-      to: "/books/excellence",
+      keywords: [book.label, "كتاب", "كتب", "المتميزين", ...book.parts.map((p) => p.label)],
+      to: `/books/excellence/${index}`,
     });
   });
 

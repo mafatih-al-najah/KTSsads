@@ -27,6 +27,7 @@ export function BookShelf({
   renderLink: (book: StudyResource, index: number) => ReactNode;
 }) {
   const [query, setQuery] = useState("");
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return books;
@@ -57,6 +58,7 @@ export function BookShelf({
           </Button>
         )}
       </div>
+
       {filtered.length > 0 ? (
         <div className="grid gap-4 sm:gap-5">
           {filtered.map((book) => {

@@ -32,4 +32,15 @@ describe("App routing", () => {
       router.matchRoutes("/notes/teachers/arabic/aqil-alzubaidi/chapters/part-one").at(-1)?.routeId,
     ).toBe("/notes/$track/$subject/$teacher/$section/$chapter");
   });
+
+  it("matches Arabic and excellence book listing and detail routes", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    expect(router.matchRoutes("/books/arabic").at(-1)?.routeId).toBe("/books/arabic");
+    expect(router.matchRoutes("/books/arabic/0").at(-1)?.routeId).toBe("/books/arabic/$index");
+    expect(router.matchRoutes("/books/excellence").at(-1)?.routeId).toBe("/books/excellence");
+    expect(router.matchRoutes("/books/excellence/0").at(-1)?.routeId).toBe(
+      "/books/excellence/$index",
+    );
+  });
 });

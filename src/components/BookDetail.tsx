@@ -10,7 +10,7 @@ export function BookDetail({
   index,
   backLink,
 }: {
-  book?: StudyResource;
+  book?: StudyResource | undefined;
   index: string;
   backLink: ReactNode;
 }) {
@@ -34,8 +34,10 @@ export function BookDetail({
   return (
     <>
       <PageHero title={book.label} subtitle="تصفّح الكتاب داخل الموقع أو حمّله مباشرة" />
+
       <div className="mx-auto max-w-5xl px-4 py-10">
         {backLink}
+
         <div className="mb-8 flex items-center gap-3 rounded-2xl border bg-card p-4">
           <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
             <BookOpen className="h-5 w-5" />
@@ -47,6 +49,7 @@ export function BookDetail({
           <>
             <div className="relative grid gap-5 sm:grid-cols-2">
               <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-l from-transparent via-border to-transparent sm:block" />
+
               {book.parts.map((part, i) => {
                 const isActive = i === selectedPart;
                 return (
@@ -62,6 +65,7 @@ export function BookDetail({
                     }}
                   >
                     <div className="part-card-glow" />
+
                     <span
                       className={`relative grid h-16 w-16 place-items-center rounded-2xl transition-transform duration-400 group-hover:scale-110 group-hover:-rotate-3 ${
                         isActive
@@ -75,6 +79,7 @@ export function BookDetail({
                         <BookMarked className="h-7 w-7" />
                       )}
                     </span>
+
                     <div className="relative">
                       <span className="block text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                         الجزء
@@ -83,6 +88,7 @@ export function BookDetail({
                         {part.label.replace("الجزء ", "").trim() || part.label}
                       </span>
                     </div>
+
                     <span
                       className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold transition ${
                         isActive
