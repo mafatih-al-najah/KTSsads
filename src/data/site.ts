@@ -222,7 +222,7 @@ export const arabicBooks: StudyResource[] = [
     ],
   },
   {
-    label: "كتاب الفرنسي 2026 (للمتوفقين)",
+    label: "كتاب الفرنسي 2026 (للمتفوقين)",
     parts: [
       {
         label: "المنهج القديم",
@@ -242,7 +242,110 @@ export const arabicBooks: StudyResource[] = [
 // انسخ المثال إلى القائمة المطلوبة واحذف // من بدايته، ثم غيّر الاسم والروابط.
 // { label: "اسم الكتاب أو الملزمة", parts: [{ label: "الكتاب كاملاً", url: "", telegramUrl: "" }] },
 // للكتاب ذي الجزأين، أضف عنصرين داخل parts: "الجزء الأول" و"الجزء الثاني"، لكل منهما روابطه.
-export const excellenceBooks: StudyResource[] = [];
+// 📚 كتب منهج المتميزين: نفس ترتيب كتب المنهج العربي بالضبط.
+// غيّر رابط Google Drive أو رابط تليكرام لأي كتاب بدون ما تغيّر ترتيبه.
+export const excellenceBooks: StudyResource[] = [
+  {
+    label: "كتاب الإسلامية 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1sSfkJBYy3hjBD0-nNr5TxvP_EgrZW_kI/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب اللغة العربية 2026",
+    parts: [
+      {
+        label: "الجزء الأول",
+        url: "https://drive.google.com/file/d/1gnacaVOCO7CqgJH74j7monJij_LFewmD/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "الجزء الثاني",
+        url: "https://drive.google.com/file/d/1TztHvEUgty3NS5yJ-SiGLQffsxyQCS2r/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الإنكليزي 2026",
+    parts: [
+      {
+        label: "كتاب الطالب كامل",
+        url: "https://drive.google.com/file/d/15gKj-TmjEaFbP2QStaYwRiAAWoqbDbT2/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "كتاب النشاط كامل",
+        url: "https://drive.google.com/file/d/1pBMjqDQRehUGGSyzdGpoQjuNRC-H7TfP/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "دليل المدرس كامل",
+        url: "https://drive.google.com/file/d/1VNnYnyxt6c_0UL3JyuF0b0tteV9tKlhf/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الفيزياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1flw96J7Wl0pI3dEEX3_smVCGmAZfVr5G/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الكيمياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1JEXSDXHSZCJXTqR4OtG22Rvl-z3KSgmv/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الأحياء 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1OSvisgHSGhgk6AMlTY68Cn3bMAtgV-o0/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الرياضيات 2026",
+    parts: [
+      {
+        label: "الكتاب كاملاً",
+        url: "https://drive.google.com/file/d/1EN0LIDZN_ymVHXiaQF4kncpE9aSXm9CO/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+  {
+    label: "كتاب الفرنسي 2026 (للمتفوقين)",
+    parts: [
+      {
+        label: "المنهج القديم",
+        url: "https://drive.google.com/file/d/13KfpYFxM_cT0RC_pxzXG3xlN1t9JXHlF/view?usp=sharing",
+        telegramUrl: "",
+      },
+      {
+        label: "المنهج الجديد",
+        url: "https://drive.google.com/file/d/1R__XGYtLXIh3hJg7gP5CET939ZVVT3o2/view?usp=sharing",
+        telegramUrl: "",
+      },
+    ],
+  },
+];
 export const indicatedBooks: StudyResource[] = [];
 // 📝 ملازم المدرسين حسب المادة: لإضافة ملزمة، ضعها داخل notes للمادة المطلوبة بهذا الشكل:
 // { label: "عنوان الملزمة", parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }] },
