@@ -23,7 +23,13 @@ describe("App routing", () => {
       "/notes/$track/$subject",
     );
     expect(router.matchRoutes("/notes/teachers/arabic/part-one").at(-1)?.routeId).toBe(
-      "/notes/$track/$subject/$section",
+      "/notes/$track/$subject/$teacher",
     );
+    expect(
+      router.matchRoutes("/notes/teachers/arabic/aqil-alzubaidi/chapters").at(-1)?.routeId,
+    ).toBe("/notes/$track/$subject/$teacher/$section");
+    expect(
+      router.matchRoutes("/notes/teachers/arabic/aqil-alzubaidi/chapters/part-one").at(-1)?.routeId,
+    ).toBe("/notes/$track/$subject/$teacher/$section/$chapter");
   });
 });

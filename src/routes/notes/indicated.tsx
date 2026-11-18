@@ -8,7 +8,10 @@ export const Route = createFileRoute("/notes/indicated")({
   component: () => (
     <>
       <PageHero title="الكتب المؤشرة" />
-      <ResourceLibrary resources={indicatedBooks} emptyText="لا توجد كتب مؤشرة مرفوعة حالياً. تابعوا القناة لإضافة جديدة." />
+      <ResourceLibrary
+        resources={indicatedBooks}
+        emptyText="لا توجد كتب مؤشرة مرفوعة حالياً. تابعوا القناة لإضافة جديدة."
+      />
     </>
   ),
 });

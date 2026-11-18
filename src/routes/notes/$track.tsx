@@ -6,7 +6,10 @@ import { BackLink, NotFoundSection } from "@/components/NotesNav";
 
 export const Route = createFileRoute("/notes/$track")({
   head: ({ params }) =>
-    meta(notesTracks.find((t) => t.slug === params.track)?.title ?? "الملازم", "اختر المادة لعرض الفصول والواجبات."),
+    meta(
+      notesTracks.find((t) => t.slug === params.track)?.title ?? "الملازم",
+      "اختر المادة لعرض الفصول والواجبات.",
+    ),
   component: TrackPage,
 });
 
