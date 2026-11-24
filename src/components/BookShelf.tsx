@@ -3,16 +3,19 @@ import { BookOpen, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DownloadChoices } from "@/components/DownloadChoices";
 import type { StudyResource } from "@/lib/download-options";
+import { sanitizeTextInput } from "@/lib/security";
 
 // الأيقونة والاسم داخل بطاقة الكتاب — تُستخدم في صفحة كتب المنهج العربي وكتب المتميزين معاً.
 export function BookLinkContent({ book }: { book: StudyResource }) {
   return (
     <>
-      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-secondary text-primary shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
         <BookOpen className="h-6 w-6" />
       </span>
       <div className="min-w-0">
-        <h3 className="text-lg font-bold leading-tight">{book.label}</h3>
+        <h3 className="font-display text-base font-extrabold leading-tight transition-colors group-hover:text-primary sm:text-lg">
+          {book.label}
+        </h3>
       </div>
     </>
   );
@@ -37,14 +40,15 @@ export function BookShelf({
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       <div className="relative mb-8">
-        <Search className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-primary/70" />
         <input
           type="text"
+          maxLength={120}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(sanitizeTextInput(e.target.value, 120))}
           placeholder="ابحث عن كتاب..."
           aria-label="بحث عن كتاب"
-          className="w-full rounded-2xl border bg-card py-3.5 pr-12 pl-12 text-base shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="w-full rounded-2xl border border-border/80 bg-card/90 py-3.5 pr-12 pl-12 text-base shadow-sm backdrop-blur-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
         {query && (
           <Button
@@ -52,7 +56,7 @@ export function BookShelf({
             size="icon"
             onClick={() => setQuery("")}
             aria-label="مسح البحث"
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full text-muted-foreground transition hover:text-foreground"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -66,10 +70,14 @@ export function BookShelf({
             return (
               <div
                 key={book.label}
-                className="card-lift group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-5 sm:p-6"
-                style={{ animationDelay: `${index * 60}ms` }}
+                data-tactile="true"
+                className="card-lift card-glow rise group relative flex items-center justify-between gap-4 overflow-hidden rounded-3xl border border-border/80 bg-card/90 p-5 shadow-sm backdrop-blur-sm sm:p-6"
+                style={{ animationDelay: `${index * 45}ms` }}
               >
-                <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-90"
+                />
                 {renderLink(book, index)}
                 <DownloadChoices title={book.label} parts={book.parts} className="shrink-0" />
               </div>

@@ -1,8 +1,9 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
-import { BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 import { meta, PageHero } from "@/components/SiteShell";
 import { notesTracks } from "@/data/site";
 import { BackLink, NotFoundSection } from "@/components/NotesNav";
+import { smoothScrollToTop } from "@/lib/smooth-scroll";
 
 export const Route = createFileRoute("/notes/$track")({
   head: ({ params }) =>
@@ -30,16 +31,21 @@ function TrackPage() {
               key={slug}
               to="/notes/$track/$subject"
               params={{ track: track.slug, subject: slug }}
-              className="card-lift group flex min-h-36 items-center gap-4 rounded-2xl border bg-card p-5 sm:p-6"
-              style={{ animationDelay: `${index * 50}ms` }}
+              data-tactile="true"
+              onClick={smoothScrollToTop}
+              className="card-lift card-glow rise group flex min-h-36 items-center gap-4 rounded-3xl border border-border/80 bg-card/90 p-5 shadow-sm backdrop-blur-sm sm:p-6"
+              style={{ animationDelay: `${index * 45}ms` }}
             >
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-primary transition-transform group-hover:scale-110">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-secondary text-primary shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
                 <BookOpen className="h-6 w-6" />
               </span>
-              <span>
-                <span className="block text-lg font-bold">{subject}</span>
-                {note && <span className="mt-1 block text-sm text-muted-foreground">({note})</span>}
+              <span className="min-w-0 flex-1">
+                <span className="block font-display text-lg font-extrabold transition-colors group-hover:text-primary">
+                  {subject}
+                </span>
+                {note && <span className="mt-1 block text-xs text-muted-foreground">({note})</span>}
               </span>
+              <ArrowLeft className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition duration-200 group-hover:-translate-x-1 group-hover:opacity-100" />
             </Link>
           ))}
         </div>

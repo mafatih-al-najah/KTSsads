@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { chapterNotes, homeworkNotes, notesTracks, teacherStudyStructure } from "@/data/site";
+import {
+  arabicCurriculumChapterNotes,
+  chapterNotes,
+  homeworkNotes,
+  notesTracks,
+  subjectTeachers,
+  teacherStudyStructure,
+} from "@/data/site";
 
 describe("teacher study structure", () => {
   const sectionsFor = (slug: string) =>
@@ -10,10 +17,28 @@ describe("teacher study structure", () => {
     for (const t of notesTracks) expect(t.structure).toHaveLength(8);
   });
 
-  it("Arabic curriculum French is for outstanding students and has no new curriculum", () => {
+  it("Arabic curriculum French is for outstanding students and includes old and new curricula", () => {
     const french = notesTracks[1]?.structure.find((s) => s.slug === "french");
     expect(french?.note).toBe("لطلاب المتفوقين فقط");
-    expect(french?.sections.map((s) => s.slug)).toEqual(["old-curriculum"]);
+    expect(french?.sections.map((s) => s.slug)).toEqual(["old-curriculum", "new-curriculum"]);
+  });
+
+  it("lists the three French teachers and Othman-only old-curriculum ministerial booklet in both tracks", () => {
+    expect(subjectTeachers["french"]?.map((t) => t.name)).toEqual([
+      "محمد علي الكناني",
+      "رنا زهير",
+      "عثمان النعيمي",
+    ]);
+    for (const notesBySubject of [chapterNotes, arabicCurriculumChapterNotes]) {
+      const basic = notesBySubject["french"]?.["old-curriculum/basic-booklet"] ?? [];
+      const ministerial = notesBySubject["french"]?.["old-curriculum/old-ministerial"] ?? [];
+      expect(basic.map((r) => r.teacher)).toEqual([
+        "محمد علي الكناني",
+        "رنا زهير",
+        "عثمان النعيمي",
+      ]);
+      expect(ministerial.map((r) => r.teacher)).toEqual(["عثمان النعيمي"]);
+    }
   });
 
   it("has physics notes and homework for chapters 1-3 by عصام الشمري 2027", () => {
@@ -42,8 +67,12 @@ describe("teacher study structure", () => {
     expect(sectionsFor("biology")).toHaveLength(5);
     expect(sectionsFor("islamic")).toHaveLength(5);
     expect(sectionsFor("french").map((item) => item.label)).toEqual([
-      "المنهج الجديد",
       "المنهج القديم",
+      "المنهج الجديد",
+    ]);
+    expect(sectionsFor("french")[0]?.children?.map((c) => c.label)).toEqual([
+      "الملزمة الأساسية",
+      "وزاريات المنهج القديم",
     ]);
   });
 

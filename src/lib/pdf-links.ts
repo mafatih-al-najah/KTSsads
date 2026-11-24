@@ -1,5 +1,11 @@
+import { sanitizeSafeUrl } from "@/lib/security";
+
 export function pdfLinks(url: string) {
-  const source = url.trim();
+  const source = sanitizeSafeUrl(url, { allowLocalHttp: true, allowRelative: true });
+  if (!source) {
+    return { preview: "", download: "", isDrive: false };
+  }
+
   let fileId: string | null = null;
   try {
     const parsed = new URL(source);

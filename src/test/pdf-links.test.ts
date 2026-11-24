@@ -11,8 +11,9 @@ describe("Book PDF links", () => {
     });
   });
   it("supports Drive open links regardless of query parameter order", () => {
-    expect(pdfLinks("https://drive.google.com/open?usp=sharing&id=book_456").download)
-      .toBe("https://drive.google.com/uc?export=download&id=book_456");
+    expect(pdfLinks("https://drive.google.com/open?usp=sharing&id=book_456").download).toBe(
+      "https://drive.google.com/uc?export=download&id=book_456",
+    );
   });
   it("keeps local PDFs available", () => {
     expect(pdfLinks(" /files/book.pdf ").preview).toBe("/files/book.pdf");
@@ -22,5 +23,13 @@ describe("Book PDF links", () => {
     expect(book?.parts).toHaveLength(2);
     expect(book?.parts[0]?.url).toContain("1gnacaVOCO7CqgJH74j7monJij_LFewmD");
     expect(book?.parts[1]?.url).toContain("1TztHvEUgty3NS5yJ-SiGLQffsxyQCS2r");
+  });
+  it("blocks dangerous schemes in PDF URLs", () => {
+    expect(pdfLinks("javascript:alert(1)")).toEqual({ preview: "", download: "", isDrive: false });
+    expect(pdfLinks("data:text/html,<script>1</script>")).toEqual({
+      preview: "",
+      download: "",
+      isDrive: false,
+    });
   });
 });

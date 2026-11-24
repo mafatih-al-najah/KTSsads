@@ -2,12 +2,20 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import {
+  buildSecurityHeaders,
+  EdgeRateLimiter,
+  extractClientIp,
+  inspectIncomingRequest,
+  isStaticAssetPath,
+} from "./lib/security";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
+const edgeRateLimiter = new EdgeRateLimiter(180, 60_000, 2000);
 
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
@@ -44,40 +52,79 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-const SECURITY_HEADERS: Record<string, string> = {
-  "Content-Security-Policy": [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline'",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com data:",
-    "img-src 'self' data: https:",
-    "frame-src 'self' https://drive.google.com",
-    "connect-src 'self' ws: wss: https://*.supabase.co",
-    "object-src 'self'",
-    "base-uri 'self'",
-    "form-action 'self'",
-  ].join("; "),
-  "X-Content-Type-Options": "nosniff",
-  "Strict-Transport-Security": "max-age=31536000",
-  "Referrer-Policy": "strict-origin-when-cross-origin",
-  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
-};
-
-function withSecurityHeaders(response: Response): Response {
+function withSecurityHeaders(request: Request, response: Response): Response {
   const headers = new Headers(response.headers);
-  for (const [name, value] of Object.entries(SECURITY_HEADERS)) headers.set(name, value);
-  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+  headers.delete("x-powered-by");
+  headers.delete("server");
+
+  const parsedUrl = safeUrl(request.url);
+  const isHttps =
+    parsedUrl?.protocol === "https:" ||
+    request.headers.get("x-forwarded-proto")?.toLowerCase() === "https";
+  const isDev = process.env["NODE_ENV"] !== "production";
+
+  const securityHeaders = buildSecurityHeaders({ isDev, isHttps });
+  for (const [name, value] of Object.entries(securityHeaders)) {
+    headers.set(name, value);
+  }
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+function safeUrl(raw: string): URL | null {
+  try {
+    return new URL(raw);
+  } catch {
+    return null;
+  }
 }
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const inspection = inspectIncomingRequest(request);
+    if (!inspection.allowed) {
+      return withSecurityHeaders(
+        request,
+        new Response("Request rejected", {
+          status: inspection.status,
+          headers: {
+            "content-type": "text/plain; charset=utf-8",
+            "cache-control": "no-store",
+          },
+        }),
+      );
+    }
+
+    const parsedUrl = safeUrl(request.url);
+    if (parsedUrl && !isStaticAssetPath(parsedUrl.pathname)) {
+      const rateLimit = edgeRateLimiter.check(extractClientIp(request));
+      if (!rateLimit.allowed) {
+        return withSecurityHeaders(
+          request,
+          new Response("Too many requests", {
+            status: 429,
+            headers: {
+              "content-type": "text/plain; charset=utf-8",
+              "retry-after": String(rateLimit.resetSeconds),
+              "cache-control": "no-store",
+            },
+          }),
+        );
+      }
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
+      return withSecurityHeaders(request, await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return withSecurityHeaders(
+        request,
         new Response(renderErrorPage(), {
           status: 500,
           headers: { "content-type": "text/html; charset=utf-8" },

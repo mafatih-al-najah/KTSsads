@@ -106,15 +106,19 @@ function pushResourceNotes(
         const matchedTeacher = teachers.find(
           (t) => normalizeSearchText(t.name) === normalizeSearchText(resource.teacher ?? ""),
         );
-        const to = matchedTeacher
-          ? `/notes/${track.slug}/${subject.slug}/${matchedTeacher.slug}/${kind}/${chapterSlug}`
-          : `/notes/${track.slug}/${subject.slug}`;
+        const to = !matchedTeacher
+          ? `/notes/${track.slug}/${subject.slug}`
+          : subject.slug === "french"
+            ? childSlug
+              ? `/notes/${track.slug}/${subject.slug}/${matchedTeacher.slug}/${chapterSlug}/${childSlug}`
+              : `/notes/${track.slug}/${subject.slug}/${matchedTeacher.slug}/${chapterSlug}`
+            : `/notes/${track.slug}/${subject.slug}/${matchedTeacher.slug}/${kind}/${chapterSlug}`;
         const metaParts = [
           track.title,
           subject.subject,
           resource.teacher,
           sectionLabel,
-          kindLabel,
+          subject.slug === "french" ? undefined : kindLabel,
           resource.year,
         ].filter(Boolean);
 
@@ -135,7 +139,7 @@ function pushResourceNotes(
           ].filter(Boolean),
           to,
         };
-        if (matchedTeacher && childSlug) {
+        if (matchedTeacher && childSlug && subject.slug !== "french") {
           item.hash = childSlug;
         }
         items.push(item);

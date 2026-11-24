@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { fetchActiveAnnouncement } from "@/lib/site-announcements";
+import { sanitizeSafeUrl } from "@/lib/security";
 
 const DISMISSED_KEY = "dismissed-announcement";
 
@@ -34,14 +35,22 @@ export function AnnouncementBar() {
     }
   };
 
-  const showImage = Boolean(data.image_url) && !imageFailed;
+  const safeImageUrl = data.image_url
+    ? sanitizeSafeUrl(data.image_url, { allowRelative: false })
+    : "";
+  const safeCtaUrl = data.cta_url ? sanitizeSafeUrl(data.cta_url, { allowRelative: false }) : "";
+  const showImage = Boolean(safeImageUrl) && !imageFailed;
 
   return (
-    <div role="region" aria-label="إعلان" className="announce-in border-b bg-teal text-teal-foreground">
+    <div
+      role="region"
+      aria-label="إعلان"
+      className="announce-in border-b bg-teal text-teal-foreground"
+    >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2.5 text-sm">
         {showImage ? (
           <img
-            src={data.image_url ?? undefined}
+            src={safeImageUrl}
             alt=""
             referrerPolicy="no-referrer"
             loading="lazy"
@@ -49,15 +58,18 @@ export function AnnouncementBar() {
             className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-accent/60"
           />
         ) : data.icon ? (
-          <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center text-lg">{data.icon}</span>
+          <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center text-lg">
+            {data.icon}
+          </span>
         ) : null}
         <p className="min-w-0 flex-1 font-semibold leading-snug">{data.message}</p>
-        {data.cta_url && data.cta_label && (
+        {safeCtaUrl && data.cta_label && (
           <a
-            href={data.cta_url}
+            href={safeCtaUrl}
             target="_blank"
-            rel="noreferrer"
-            className="hidden shrink-0 rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-accent-foreground transition hover:-translate-y-0.5 sm:inline-flex"
+            rel="noopener noreferrer"
+            data-tactile="true"
+            className="btn-lime hidden shrink-0 px-4 py-1.5 text-xs sm:inline-flex"
           >
             {data.cta_label}
           </a>
@@ -67,18 +79,19 @@ export function AnnouncementBar() {
           onClick={dismiss}
           aria-label="إغلاق الإعلان"
           title="إغلاق الإعلان"
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition hover:bg-white/10"
+          className="relative grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full transition hover:bg-white/10"
         >
           <X className="h-4 w-4" />
         </button>
       </div>
-      {data.cta_url && data.cta_label && (
+      {safeCtaUrl && data.cta_label && (
         <div className="px-4 pb-2.5 sm:hidden">
           <a
-            href={data.cta_url}
+            href={safeCtaUrl}
             target="_blank"
-            rel="noreferrer"
-            className="block rounded-full bg-accent px-4 py-2 text-center text-xs font-bold text-accent-foreground"
+            rel="noopener noreferrer"
+            data-tactile="true"
+            className="btn-lime block w-full py-2 text-center text-xs"
           >
             {data.cta_label}
           </a>

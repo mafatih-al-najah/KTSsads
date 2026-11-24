@@ -405,7 +405,11 @@ export const subjectTeachers: SubjectTeachers = {
     { slug: "mohammed-hussein", name: "محمد حسين", photo: "" },
     { slug: "ali-alhashimi", name: "علي الهاشمي", photo: "" },
   ],
-  french: [{ slug: "mohammed-ali-alkinani", name: "محمد علي الكناني", photo: "" }],
+  french: [
+    { slug: "mohammed-ali-alkinani", name: "محمد علي الكناني", photo: "" },
+    { slug: "rana-zuhair", name: "رنا زهير", photo: "" },
+    { slug: "othman-alnaimi", name: "عثمان النعيمي", photo: "" },
+  ],
   islamic: [
     { slug: "ammar-fadhil", name: "عمار فاضل", photo: "" },
     { slug: "sajid-alakili", name: "ساجد العكيلي", photo: "" },
@@ -504,8 +508,15 @@ export const teacherStudyStructure: {
     slug: "french",
     subject: "الفرنسي",
     sections: [
+      {
+        slug: "old-curriculum",
+        label: "المنهج القديم",
+        children: [
+          { slug: "basic-booklet", label: "الملزمة الأساسية" },
+          { slug: "old-ministerial", label: "وزاريات المنهج القديم" },
+        ],
+      },
       { slug: "new-curriculum", label: "المنهج الجديد" },
-      { slug: "old-curriculum", label: "المنهج القديم" },
     ],
   },
 ];
@@ -513,7 +524,7 @@ export const teacherStudyStructure: {
 // 📝 الملازم والواجبات: كل ملزمة تُكتب بهذا الشكل (الاسم، المدرس، السنة، ثم الروابط):
 // { label: "اسم الملزمة", teacher: "اسم المدرس", year: "2027", parts: [{ label: "الملزمة كاملة", url: "رابط Google Drive", telegramUrl: "رابط تليكرام" }] },
 // المفتاح الأول = المادة: arabic, math, english, chemistry, physics, biology, islamic, french
-// المفتاح الثاني = الفصل: chapter-1 ... (للإنكليزي والإسلامية: unit-1 ...)، للفرنسي: new-curriculum أو old-curriculum
+// المفتاح الثاني = الفصل: chapter-1 ... (للإنكليزي والإسلامية: unit-1 ...)، للفرنسي: old-curriculum/basic-booklet أو old-curriculum/old-ministerial أو new-curriculum
 // للعربي: part-one/grammar أو part-one/literature أو part-two/grammar أو part-two/literature
 type NotesBySection = Partial<Record<string, Partial<Record<string, StudyResource[]>>>>;
 
@@ -632,7 +643,32 @@ export const chapterNotes: NotesBySection = {
   },
   biology: {},
   islamic: {},
-  french: {},
+  french: {
+    "old-curriculum/basic-booklet": [
+      {
+        label: "الملزمة الأساسية",
+        teacher: "محمد علي الكناني",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+      {
+        label: "الملزمة الأساسية",
+        teacher: "رنا زهير",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+      {
+        label: "الملزمة الأساسية",
+        teacher: "عثمان النعيمي",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+    ],
+    "old-curriculum/old-ministerial": [
+      {
+        label: "وزاريات المنهج القديم",
+        teacher: "عثمان النعيمي",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+    ],
+  },
 };
 
 // ⭐ ملازم المتميزين — خانة «الواجبات» (نفس مفاتيح الفصول)
@@ -683,8 +719,35 @@ export const homeworkNotes: NotesBySection = {
   },
 };
 
-// 📘 ملازم المنهج العربي — خانة «الفصول» (نفس الشكل والمفاتيح، والفرنسي: old-curriculum فقط)
-export const arabicCurriculumChapterNotes: NotesBySection = {};
+// 📘 ملازم المنهج العربي — خانة «الفصول» (نفس الشكل والمفاتيح)
+export const arabicCurriculumChapterNotes: NotesBySection = {
+  french: {
+    "old-curriculum/basic-booklet": [
+      {
+        label: "الملزمة الأساسية",
+        teacher: "محمد علي الكناني",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+      {
+        label: "الملزمة الأساسية",
+        teacher: "رنا زهير",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+      {
+        label: "الملزمة الأساسية",
+        teacher: "عثمان النعيمي",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+    ],
+    "old-curriculum/old-ministerial": [
+      {
+        label: "وزاريات المنهج القديم",
+        teacher: "عثمان النعيمي",
+        parts: [{ label: "الملزمة كاملة", url: "", telegramUrl: "" }],
+      },
+    ],
+  },
+};
 
 // 📘 ملازم المنهج العربي — خانة «الواجبات»
 export const arabicCurriculumHomeworkNotes: NotesBySection = {};
@@ -713,7 +776,6 @@ export const notesTracks: NotesTrack[] = [
         ? {
             ...item,
             note: "لطلاب المتفوقين فقط",
-            sections: item.sections.filter((s) => s.slug !== "new-curriculum"),
           }
         : item,
     ),

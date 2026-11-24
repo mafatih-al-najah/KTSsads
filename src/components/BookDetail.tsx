@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { BookMarked, BookOpen } from "lucide-react";
+import { BookMarked, BookOpen, CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/SiteShell";
 import { PdfViewer } from "@/components/PdfViewer";
 import type { StudyResource } from "@/lib/download-options";
@@ -38,17 +38,20 @@ export function BookDetail({
       <div className="mx-auto max-w-5xl px-4 py-10">
         {backLink}
 
-        <div className="mb-8 flex items-center gap-3 rounded-2xl border bg-card p-4">
-          <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
+        <div className="mb-8 flex items-center gap-3.5 rounded-2xl border border-border/80 bg-card/90 p-4 shadow-sm backdrop-blur-sm">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand text-primary-foreground shadow-sm">
             <BookOpen className="h-5 w-5" />
           </span>
-          <h2 className="text-lg font-bold">{book.label}</h2>
+          <h2 className="font-display text-lg font-extrabold">{book.label}</h2>
         </div>
 
         {isMultiPart ? (
           <>
-            <div className="relative grid gap-5 sm:grid-cols-2">
-              <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-l from-transparent via-border to-transparent sm:block" />
+            <div className="relative mb-8 grid gap-5 sm:grid-cols-2">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-l from-transparent via-border to-transparent sm:block"
+              />
 
               {book.parts.map((part, i) => {
                 const isActive = i === selectedPart;
@@ -58,16 +61,13 @@ export function BookDetail({
                     type="button"
                     onClick={() => setSelection({ index, part: i })}
                     aria-pressed={isActive}
-                    className="part-card group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border p-8 text-center transition-all duration-400"
-                    style={{
-                      animation: "rise .6s cubic-bezier(.22,1,.36,1) both",
-                      animationDelay: `${i * 100}ms`,
-                    }}
+                    className="part-card rise group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border p-8 text-center"
+                    style={{ animationDelay: `${i * 90}ms` }}
                   >
                     <div className="part-card-glow" />
 
                     <span
-                      className={`relative grid h-16 w-16 place-items-center rounded-2xl transition-transform duration-400 group-hover:scale-110 group-hover:-rotate-3 ${
+                      className={`relative grid h-16 w-16 place-items-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${
                         isActive
                           ? "bg-brand text-primary-foreground shadow-glow"
                           : "bg-secondary text-primary"
@@ -81,21 +81,18 @@ export function BookDetail({
                     </span>
 
                     <div className="relative">
-                      <span className="block text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-                        الجزء
-                      </span>
-                      <span className="mt-1 block text-2xl font-bold leading-tight">
+                      <span className="block text-xs font-bold text-muted-foreground">الجزء</span>
+                      <span className="mt-1 block font-display text-2xl font-black leading-tight">
                         {part.label.replace("الجزء ", "").trim() || part.label}
                       </span>
                     </div>
 
                     <span
-                      className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold transition ${
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "border border-border bg-background text-muted-foreground"
+                      className={`relative inline-flex items-center gap-1.5 text-xs font-bold transition ${
+                        isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary"
                       }`}
                     >
+                      {isActive && <CheckCircle2 className="h-4 w-4" aria-hidden="true" />}
                       {isActive ? "قيد العرض" : "اضغط للعرض"}
                     </span>
                   </button>

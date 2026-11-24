@@ -1,9 +1,10 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
-import { User } from "lucide-react";
+import { ArrowLeft, User } from "lucide-react";
 import { ResourceLibrary } from "@/components/ResourceLibrary";
 import { meta, PageHero } from "@/components/SiteShell";
 import { notesTracks, teacherNotes, subjectTeachers } from "@/data/site";
 import { BackLink, NotFoundSection } from "@/components/NotesNav";
+import { smoothScrollToTop } from "@/lib/smooth-scroll";
 
 export const Route = createFileRoute("/notes/$track/$subject")({
   head: ({ params }) => {
@@ -46,26 +47,30 @@ function SubjectPage() {
                 key={teacher.slug}
                 to="/notes/$track/$subject/$teacher"
                 params={{ track: track.slug, subject: subject.slug, teacher: teacher.slug }}
-                className="card-lift card-glow group flex flex-col items-center rounded-2xl border bg-card p-6 text-center"
-                style={{
-                  animation: "rise .6s cubic-bezier(.22,1,.36,1) both",
-                  animationDelay: `${index * 60}ms`,
-                }}
+                data-tactile="true"
+                onClick={smoothScrollToTop}
+                className="card-lift card-glow rise group flex flex-col items-center rounded-3xl border border-border/80 bg-card/90 p-7 text-center shadow-sm backdrop-blur-sm"
+                style={{ animationDelay: `${index * 60}ms` }}
               >
                 <div className="teacher-avatar mb-4 group/av">
                   {teacher.photo ? (
                     <img
                       src={teacher.photo}
                       alt={teacher.name}
+                      referrerPolicy="no-referrer"
                       className="h-full w-full rounded-2xl object-cover"
                     />
                   ) : (
                     <User className="h-10 w-10 text-muted-foreground transition-transform duration-300 group-hover/av:scale-110" />
                   )}
                 </div>
-                <h3 className="text-lg font-bold transition-colors group-hover:text-primary">
+                <h3 className="font-display text-lg font-extrabold transition-colors group-hover:text-primary">
                   {teacher.name}
                 </h3>
+                <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-primary opacity-75 transition-opacity group-hover:opacity-100">
+                  عرض الملازم
+                  <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" />
+                </span>
               </Link>
             ))}
           </div>
@@ -77,7 +82,9 @@ function SubjectPage() {
       </div>
       {extra.length > 0 && (
         <section className="border-t">
-          <h2 className="mx-auto max-w-5xl px-4 pt-8 text-xl font-bold">ملازم مضافة للمادة</h2>
+          <h2 className="mx-auto max-w-5xl px-4 pt-8 font-display text-xl font-extrabold">
+            ملازم مضافة للمادة
+          </h2>
           <ResourceLibrary resources={extra} emptyText="" />
         </section>
       )}
